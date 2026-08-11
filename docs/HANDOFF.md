@@ -3,17 +3,22 @@
 Written last, read first. If you are picking this up cold, this page and
 `docs/progress.md` are the whole state. Nothing important lives only in a chat.
 
-**Last updated:** 2026-08-11, after Phases 0 and 1, on branch `phase-0-1`.
+**Last updated:** 2026-08-12, after the vision review, on branch `phase-0-1`.
 
 ---
 
 ## What this is
 
 A local-first PWA that takes one learner — Qusai, sole user — from "can decode
-Arabic script but understands nothing" to reading Quran and classical texts, and
-speaking Fusha.
+Arabic script but understands nothing" to **reading the Quran and classical
+texts cold, and thinking in Fusha**.
 
-It is a **curriculum with an engine**, not a flashcard app. Full design:
+The finish line is **a very strong B2, Quran-weighted** — read any verse
+unvocalised with no gloss at 98% coverage, follow spoken Fusha, speak and think
+in it. C1/C2 general Arabic was considered on 2026-08-12 and deliberately cut.
+
+It is a **curriculum with an engine**, not a flashcard app. Full design, now
+evidence-sourced:
 [`docs/superpowers/specs/2026-08-11-arabic-mastery-design.md`](superpowers/specs/2026-08-11-arabic-mastery-design.md).
 
 ## What it refuses to be
@@ -21,16 +26,16 @@ It is a **curriculum with an engine**, not a flashcard app. Full design:
 No accounts. No server. No sync. No social, sharing, or leaderboards. No ads.
 No telemetry, and **no network call at runtime at all**. No gamified currency,
 lives, or energy. No guilt mechanics. **No Latin transliteration, anywhere,
-ever.**
+ever. No microphone, ever. Nothing paid, ever** — no paid service, API, host or
+asset, at any point.
 
 Progress analytics on-device is a core feature. Analytics leaving the device is
 banned. These are different things and the distinction is load-bearing.
 
 ## Where work stopped
 
-**Phases 0 and 1 are built and green.** The app runs, installs, works offline,
-and can be studied from daily. It is on branch `phase-0-1`, unmerged, awaiting
-Qusai opening it.
+**Phases 0, 1 and the design pass are built and green.** The app runs, installs,
+works offline, and can be studied from daily. Branch `phase-0-1`, unmerged.
 
 What exists:
 
@@ -38,13 +43,16 @@ What exists:
 - 300 lexemes and 172 roots, derived from the Quranic Arabic Corpus.
 - FSRS review session with interval previews, keyboard-only operation, TTS.
 - Persistence in IndexedDB, JSON export **and import**, in-app gloss correction.
+- A design pass: size-specific type, real hairlines, critically damped motion,
+  tap-anywhere-to-reveal.
 - The gate, and CI wired to it.
 
-Next: **Phase 2** — the 10/day card, backlog throttle, MCQ quiz, weekly report,
-progress analytics, streak.
+Next: **Phase 2 — the Day page.** The whole app becomes one scrolling page of
+today's blocks with checkboxes, plus a settings screen; analytics is the only
+other screen. See spec §6 and §13.
 
-Blocked on nothing. Waiting only on Qusai dropping graded readers into
-`content-inbox/readers/`, which Phase 2 does not need either.
+Blocked on nothing. Two things need Qusai: a **git remote** (see below) and a
+decision only he can make about how many minutes a day he will actually give it.
 
 ## How to run
 
@@ -120,11 +128,20 @@ It is inert until a remote exists.
 
 ## How to ship and roll back
 
-Nothing is deployed and there is no remote. When there is: the app is a static
-PWA, so rollback is redeploying the previous build, and **service-worker cache
-must be verified as actually updated** before any fix is called delivered. The
-service worker is `registerType: 'autoUpdate'` with `skipWaiting`, so a reload
-after the new build lands is enough — but verify it, do not assume it.
+**Nothing is deployed and there is no remote yet.** This is the largest
+operational gap: the repo exists on exactly one disk, so a drive failure loses
+the project.
+
+The plan, decided 2026-08-12: **public GitHub repo → CI runs the gate → GitHub
+Pages.** Free permanently, and updating the app is a push. Public is safe
+because of the licence rule in spec §7 — no in-copyright text is ever committed,
+so there is nothing to hide. Qusai creates the repo and supplies the URL;
+nothing is pushed without him saying so.
+
+Rollback is redeploying the previous build, and **service-worker cache must be
+verified as actually updated** before any fix is called delivered. The service
+worker is `registerType: 'autoUpdate'` with `skipWaiting`, so a reload after the
+new build lands is enough — but verify it, do not assume it.
 
 ## Toolchain
 
@@ -194,32 +211,43 @@ could notice. Nothing mechanical is ever hand-copied.
 
 ## Known gaps, stated deliberately
 
-1. **The 300 glosses are mine, not a scholar's.** Every lexeme carries
+1. **No git remote, so no off-machine copy of anything.** Highest priority.
+   Everything — code, docs, hand-authored glosses — exists on one disk.
+2. **The 300 glosses are mine, not a scholar's.** Every lexeme carries
    `unverified: true`. Read `content/lexeme-review.tsv` and correct anything
    wrong — either in the app (the correction is stored per-word and exported) or
    in `content/lexeme-glosses.tsv` followed by `npm run content`.
-2. **Six corpus lemmas are inflection fragments, not citable words** (ranks 186,
+3. **Six corpus lemmas are inflection fragments, not citable words** (ranks 186,
    208, 239, 263, 286, 288). Their display forms were supplied by hand and are
    the only Arabic in the repo I typed rather than derived.
-3. **Root glosses do not exist.** The design promised "60 roots"; what shipped is
-   172 roots with their word families and *no* core gloss, because a derived
-   gloss would have been a guess wearing a fact's clothing. The root browser in
-   Phase 4 is where they get authored.
-4. **Graded classical readers are missing.** Qasas an-Nabiyyīn and Al-Qirā'ah
-   al-Rāshidah. Levels 2–4 depend on graded prose. Qusai is sourcing these.
-5. **No native audio.** TTS only, and only where the device has an Arabic voice —
-   the card says so out loud when it does not. Recitation audio is still needed
-   for Phase 6.
-6. **No analytics, streak, quiz or new-word card yet.** Phase 2 owns all of it.
-   Today the daily limit is a fixed 10 and there is no backlog throttle, so a
-   fortnight away will produce a wall of due cards.
-7. **The Lane's-roots dataset contains AI-generated English summaries.** The
-   verbatim Lane definitions are trustworthy; the `summary_en` field is not.
-8. **Arabic OCR in the archive.org text layers is unreliable.** Do not extract
-   Arabic from `wright-*.txt` or `ajurrumiyyah-matn-arabic.txt`. Latin is fine.
-9. **`claude.ai` and `Context7` MCP connectors are unauthorised**, so library
-   APIs cannot be checked against live docs. Everything here was checked against
-   the installed packages' own type definitions instead. Needs an interactive
-   `/mcp` to fix.
-10. **Long sessions have frozen the client.** See progress.md, 2026-08-11.
+4. **Root glosses do not exist.** 172 roots ship with their word families and
+   *no* core gloss, because a derived gloss would have been a guess wearing a
+   fact's clothing. Phase 6's root atlas is where they get authored.
+5. **Both graded readers are OCR'd scans and unusable.** Measured 2026-08-12:
+   Al-Qirā'ah al-Rāshidah decodes with visible corruption; the Qasas
+   an-Nabiyyīn file declares its own OCR accuracy at 37.43% on the page and is
+   an Urdu edition. **Do not build a pipeline for them.** The reader is built
+   from the Quran instead (spec §4.4) — no longer blocking. A *digital text*
+   edition of either book would still add connected prose at L1–L2.
+6. **No connected graded prose at Levels 1–2.** The Quran gives 483 readable
+   verses at 300 words, but they are scattered short verses, not narrative.
+   Hand-authored graded sentences are the plan.
+7. **No native audio.** TTS only, and only where the device has an Arabic voice —
+   the card says so plainly when it does not. Recitation audio still wanted.
+8. **No feedback on pronunciation, permanently, by choice.** No microphone means
+   no way to catch a sound being drilled wrong for months. Accepted 2026-08-12;
+   listening volume is the substitute.
+9. **The app is still two screens, not the Day page.** Phase 2 owns that, along
+   with the streak, backlog throttle, quiz and settings. Today the daily limit is
+   a fixed 10 with no throttle, so a fortnight away produces a wall of due cards.
+10. **The Lane's-roots dataset contains AI-generated English summaries.** The
+    verbatim Lane definitions are trustworthy; the `summary_en` field is not.
+11. **Arabic OCR anywhere in `content-inbox/` is unreliable.** Applies to
+    `wright-*.txt`, `ajurrumiyyah-matn-arabic.txt`, and every EPUB in
+    `readers/`. Latin text layers are fine; Arabic ones are not.
+12. **`claude.ai` and `Context7` MCP connectors are unauthorised.** Decided
+    2026-08-12 to leave them that way: every API here is checked against the
+    installed packages' own type definitions, which is more authoritative than
+    published docs. Not a gap worth closing.
+13. **Long sessions have frozen the client.** See progress.md, 2026-08-11.
     Work in short sessions and keep this file current — that is the mitigation.

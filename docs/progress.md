@@ -5,6 +5,116 @@ broke and how it was found, and what was tried and abandoned.
 
 ---
 
+## 2026-08-12 — Vision review: the plan re-grounded in evidence
+
+Qusai asked for the whole vision played back before anything bigger got built,
+and then changed six things. This is the record of what changed and why.
+
+### What he decided
+
+- **The finish line is a very strong B2, Quran-weighted.** C1/C2 general Arabic
+  was on the table and was cut. This sets every vocabulary target.
+- **The app teaches grammar.** A lesson block is core, not a textbook's job.
+- **No microphone, ever.** No recording, no pronunciation check, no talking to
+  the phone. Shadowing continues aloud, uncaptured.
+- **A daily media pick replaces it** — curated video and podcast suggestions,
+  marked done, advancing to the next.
+- **One page is the app.** Today's blocks in a scroll, each with a checkbox, a
+  final checkbox to conclude the day. Analytics and settings are the only other
+  screens.
+- **Nothing paid, ever**, and updates ship by pushing to git.
+
+### The evidence pass, and what it changed
+
+Requested explicitly: the method has to rest on what is known about second
+language acquisition, not on plausible design. Six findings, all now in spec §3.
+
+1. **95% coverage is "minimally acceptable"; 98% is independent reading**
+   (Hu & Nation 2000, replicated 2023). The design used 95% everywhere.
+   → The reader gains a second mode, and the finish line is restated at 98%.
+2. **A word needs 7–8 encounters** for a coin-flip at two months. → Reading
+   volume is half the vocabulary machine, so the reader moved from Phase 5 of
+   the old plan to Phase 5 of a plan where it comes *before* the root atlas.
+3. **CEFR counts word families, and an Arabic root is a word family.** The
+   Quran's 4,776 lemmas are ~1,651 roots ≈ 1,600–2,000 families ≈ **B2**, not
+   C2. → This is what made "strong B2" the honest description of finishing all
+   seven levels, and it is why the root atlas is the central idea rather than a
+   feature.
+4. **Spacing + retrieval + feedback** beats everything else measured (Kim & Webb
+   2022, 48 experiments). → Confirms FSRS as the core; cramming is a design
+   error, not a user error.
+5. **FSI puts Arabic at Category IV, ~2,200 hours** to professional proficiency.
+   → The old spec claimed **Category V, which was simply wrong** and is
+   corrected. At 50 min/day the honest figure is over seven years to that mark;
+   the level table's own destination is nearer than that but not close to
+   "20–24 months", so the pace claim is now stated plainly instead of sold.
+6. **"As fast as humanly possible" buys exactly four levers:** more minutes,
+   more reading, spacing over cramming, retrieval with feedback. Nothing
+   supports raising new-word intake. → Intake stays fixed at 10/day and the app
+   optimises minutes and encounters instead.
+
+### The finding that changed the most
+
+**Both graded readers are unusable, and they turned out not to matter.**
+
+Qusai uploaded Al-Qirā'ah al-Rāshidah vols 1–3 and Qasas an-Nabiyyīn as EPUBs.
+Unpacked and measured rather than assumed: both are OCR'd scans. Al-Qirā'ah
+decodes with visible corruption — `الواردة #ي الحديث`, a literal `#` standing in
+for في. The Qasas file prints its own OCR confidence on the page — *"estimated to
+be only 37.43% accurate"* — and is an Urdu edition, not Arabic.
+
+Then the measurement that resolved it. Counting, from the morphology file, how
+many Quran verses fall at or above each coverage threshold for each vocabulary
+size:
+
+```
+known   verses ≥95%   words     verses ≥98%
+  300       483        3,531        470
+  700     1,653       17,137      1,495
+1,200     2,857       33,557      2,575
+2,000     4,119       50,912      3,820
+3,000     5,112       64,862      4,853
+```
+
+**Real Quran is readable from Level 1** — 483 verses, 3,531 words — in perfect
+vocalised digital text with every morpheme scholar-tagged. And because verses
+are short (median 10 words), the 98% "cold" set barely trails the 95% assisted
+one, so reading unaided is available from the start rather than only at the end.
+
+The graded readers stop being a blocker and become a wish-list item. What is
+genuinely lost is *connected prose*: 483 scattered short verses is not a
+narrative, and the extensive-reading literature wants both volume and
+connectedness. Hand-authored graded sentences cover L1–L2.
+
+### Decided differently, and why
+
+- **Catalogue the library, do not extract it.** Qusai proposed processing every
+  uploaded book before building further. Two-thirds right: knowing what you have
+  is cheap and worth doing, but most of that shelf is *reference to consult*,
+  not *content to import*, and the real unknown was extraction quality — which
+  one sample page answered, and answered badly. Survey → prove on a sample →
+  extract per phase, on demand.
+- **Public repo, not private.** The copyright problem dissolved once the reader
+  came from the Quran: with no in-copyright text ever committed, there is
+  nothing to hide, and public GitHub Pages is free forever where private hosting
+  is not. A licence allow-list check in the gate keeps it that way.
+- **No Firecrawl on the books.** The parse skill would have uploaded Qusai's
+  copyrighted PDFs to a third party. PDF and EPUB extraction stays local.
+- **`/mcp` left unauthorised on purpose.** Every API in this project is verified
+  against the installed package's own `.d.ts`, which is more authoritative than
+  published docs. Closed as "not a gap".
+
+### Tried and abandoned
+
+- **Arc 2 to C1/C2.** Drafted a tenth phase extending vocabulary to 9–16k word
+  families for general Arabic. Cut by Qusai in favour of depth at B2. Do not
+  reintroduce it as scope creep.
+- **Cloudflare Pages + Access for a private deploy.** Researched as the free
+  route to a private site; became unnecessary when the copyright issue
+  dissolved. Recorded in case the constraint ever returns.
+
+---
+
 ## 2026-08-11 — Design pass: editorial precision, Apple physics
 
 Qusai's call, asked for directly: the build was austere where it should have
