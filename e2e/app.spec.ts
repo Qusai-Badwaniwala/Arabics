@@ -41,10 +41,29 @@ test('the Arabic word does not move when the answer appears', async ({
   // at the exact moment the eye was on it.
   await page.goto('/#review');
   const word = page.locator('.study');
+
+  // A new word animates in, and getBoundingClientRect includes a mid-flight
+  // transform. Wait for the arrival to finish or the baseline is a moving
+  // target — the first version of this test measured 10px of animation and
+  // reported a layout shift that was not there.
+  await page
+    .locator('.word-slot')
+    .evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)));
+
   const before = await word.boundingBox();
   await page.getByRole('button', { name: 'Show answer' }).click();
   await expect(page.getByText('and')).toBeVisible();
   expect((await word.boundingBox())?.y).toBe(before?.y);
+});
+
+test('tapping the card anywhere reveals the answer', async ({ page }) => {
+  // A thumb should not have to find a button. The button still exists — it is
+  // the keyboard and screen-reader path — so this is a second, larger target
+  // for the same action, not a replacement.
+  await page.goto('/#review');
+  await page.locator('.card').click();
+  await expect(page.getByText('and')).toBeVisible();
+  await expect(page.getByRole('button', { name: /^Good/ })).toBeVisible();
 });
 
 test('a graded card is still graded after a reload', async ({ page }) => {

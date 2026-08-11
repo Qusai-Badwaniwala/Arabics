@@ -5,6 +5,76 @@ broke and how it was found, and what was tried and abandoned.
 
 ---
 
+## 2026-08-11 — Design pass: editorial precision, Apple physics
+
+Qusai's call, asked for directly: the build was austere where it should have
+felt premium. Done now rather than at Phase 7, because the shell is what every
+later phase inherits — tokens, type, motion vocabulary, how a surface behaves.
+Direction chosen by him: **editorial luxury crossed with Apple's physics** — a
+finely printed page that responds like a well-made instrument.
+
+Skill invoked: `apple-design`. Not `emil-design-eng` as well — it covers the
+same craft ground and the session was already long.
+
+### Built
+
+- **Type is now size-specific.** Separate tracking and leading tokens per step:
+  display tightens (`-0.022em`), chrome opens (`0.14em`), body sits at zero. One
+  `letter-spacing` for every size is wrong somewhere by definition.
+  **`--track-arabic` is 0 and must stay 0** — letter-spacing severs the cursive
+  joins and turns an Arabic word into loose letters.
+- **Tabular numerals** everywhere a number changes, so the counter does not make
+  the line twitch as it counts down.
+- **Real hairlines.** `--hairline` is `0.5px` at 2dppx and above. A 1px border
+  is a 3px slab on a phone.
+- **Three-layer elevation** in day (contact, key, ambient) instead of one blurred
+  box; night gets no shadow but an inset top edge, because in the dark lighter
+  *is* raised.
+- **Press feedback on pointer-down**, `scale(0.97)` in 100ms, plus
+  `touch-action: manipulation` and no tap-highlight — the moment feedback waits
+  for the click, directness falls off a cliff.
+- **Motion is critically damped** — `cubic-bezier(0.32, 0.72, 0, 1)`, no
+  overshoot anywhere. Bounce belongs to motion the hand actually threw, and
+  nothing here is thrown. A new word *arrives* (keyed on lexeme id, so it plays
+  once per word, never on a re-render); the answer *settles* in beneath it.
+- **Tap anywhere on the card to reveal.** The button stays as the keyboard and
+  screen-reader path; the card is a larger duplicate target, and the affordance
+  sits on the card's bottom margin where it cannot push the word.
+- **Reduced motion** keeps the fades and drops every translate and scale;
+  `prefers-contrast: more` firms up every border.
+
+### Decided differently, and why
+
+- **No spring library.** Nothing here is gesture-driven, so an interruptible
+  spring has nothing to interrupt; a tuned bezier is the same feel with no
+  dependency. *If drag-to-grade is ever built, that changes — springs are the
+  right tool the moment a finger is carrying velocity.*
+- **No glass anywhere.** The design spec bans blur behind Arabic, and there is
+  no scrolling content for translucent chrome to float over. Depth comes from
+  shadow and edge instead.
+- **The card fills its region** rather than floating in it. A 430px card on a
+  915px phone left the answer and the grade buttons as two islands.
+
+### What broke, and how it was found
+
+- **The front of the card became a huge empty page** with a single letter near
+  the top and nothing saying it could be tapped. Found by screenshotting it.
+  Fixed with one element: the tap affordance, pinned to the card's bottom
+  margin — it fills the void *and* explains the interaction, without moving
+  anything above it.
+- **The "word does not move" test failed by 0.4px, and it was the test that was
+  wrong.** `getBoundingClientRect` includes a mid-flight transform, so the
+  baseline was measured during the new word's arrival animation. Measured the
+  boxes directly to prove it: the card sat at y=112, height 432, in both states.
+  The test now waits on `getAnimations()` before its baseline.
+- **Then the test turned out to be toothless.** Restoring the old centred-card
+  defect *passed*, because `flex: 1` on the card now holds the invariant
+  independently. Removing both supports moves the word 38px and the test fails
+  properly. Both rules are now commented as independently sufficient, so nobody
+  deletes one as redundant.
+
+---
+
 ## 2026-08-11 — Phases 0 and 1: the shell, the gate, and a usable review app
 
 Branch `phase-0-1`. The app now runs, installs, works offline, and can be

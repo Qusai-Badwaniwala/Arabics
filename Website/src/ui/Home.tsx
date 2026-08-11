@@ -103,6 +103,7 @@ export function Home({ state, theme, onTheme, onReplace }: Props) {
       </div>
 
       <div className="stack center">
+        <hr className="rule" />
         <p className="data">
           {lexemes.length} words · {roots.length} roots · {met} met
         </p>

@@ -99,8 +99,13 @@ export function Review({ state, onUpdate }: Props) {
       </div>
 
       <div className="grow pinned">
-        <div className="panel card center">
-          <div className="word-slot">
+        <div
+          className={`panel card center${revealed ? '' : ' tappable'}`}
+          onClick={revealed ? undefined : () => setRevealed(true)}
+        >
+          {/* Keyed on the lexeme so the next word plays its arrival once, and
+              a re-render — grading, editing a gloss — never replays it. */}
+          <div className="word-slot" key={lexeme.id}>
             <div className="arabic study" dir="rtl" lang="ar">
               {lexeme.ar}
             </div>
@@ -172,6 +177,9 @@ export function Review({ state, onUpdate }: Props) {
               </div>
               {voiceNote !== null && <p className="data">{voiceNote}</p>}
             </div>
+          )}
+          {!revealed && (
+            <p className="chrome card-hint">Tap anywhere to reveal</p>
           )}
         </div>
       </div>

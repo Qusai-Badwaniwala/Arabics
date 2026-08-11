@@ -6,7 +6,7 @@
    first and must stay plain `--name: value;` syntax. */
 
 :root {
-  /* Parchment — day */
+  /* ---- Parchment — day ------------------------------------------------ */
   --ground: #f4efe4;
   --panel: #fbf7ef;
   --ink: #1a1614;
@@ -15,23 +15,53 @@
   --accent: #8c3a2b;
   --on-accent: #fbf7ef;
   --focus: #8c3a2b;
-  /* Paper lifted off a desk. Night gets no shadow — there, lighter = raised. */
-  --lift:
-    0 1px 1px rgba(26, 22, 20, 0.05), 0 10px 28px -12px rgba(26, 22, 20, 0.18);
 
-  /* Type. Amiri carries every word the learner reads — Arabic and English
-     both — so the reading voice is one voice. system-ui is the instrument
-     voice: counts, labels, buttons. Two roles, one font file. */
+  /* Three layers: contact shadow, key light, ambient. One blurred box makes
+     a card look stuck to the page; three make it look lifted off it. */
+  --lift:
+    0 0.5px 1px rgba(26, 22, 20, 0.07), 0 6px 14px -8px rgba(26, 22, 20, 0.16),
+    0 24px 48px -32px rgba(26, 22, 20, 0.28);
+  /* Light catching the top edge of a raised surface. Day: none needed, the
+     shadow already reads. Night: this is the only thing that lifts it. */
+  --edge: none;
+
+  /* ---- Type ----------------------------------------------------------- */
+  /* Amiri carries every word the learner reads — Arabic and English both — so
+     the reading voice is one voice. system-ui is the instrument voice:
+     counts, labels, buttons. Two roles, one font file. */
   --font-read: 'Amiri', 'Times New Roman', serif;
   --font-chrome:
     system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
 
-  --step-study: clamp(3rem, 13vw, 4rem);
-  --step-title: clamp(2.75rem, 12vw, 3.5rem);
-  --step-gloss: 1.375rem;
+  --step-study: clamp(3.25rem, 14vw, 4.5rem);
+  --step-title: clamp(3rem, 13vw, 4rem);
+  --step-gloss: 1.5rem;
   --step-body: 1.0625rem;
-  --step-chrome: 0.75rem;
+  --step-data: 0.8125rem;
+  --step-chrome: 0.6875rem;
 
+  /* Tracking is size-specific or it is wrong somewhere: large text reads too
+     loose and needs negative tracking, small caps read too tight and need
+     positive. One letter-spacing for everything is the tell of a default.
+     --track-arabic is 0 and must stay 0 — letter-spacing breaks the cursive
+     joins in Arabic script and turns a word into loose letters. */
+  --track-arabic: 0;
+  --track-display: -0.022em;
+  --track-gloss: -0.01em;
+  --track-body: 0;
+  --track-data: 0.01em;
+  --track-chrome: 0.14em;
+
+  /* Leading tracks size inversely: tight on display, open on body. Arabic
+     needs more than Latin at the same size — the harakat sit above the line
+     and the descenders swing below it. */
+  --lead-arabic: 1.5;
+  --lead-display: 1.06;
+  --lead-gloss: 1.2;
+  --lead-body: 1.55;
+
+  /* ---- Space ---------------------------------------------------------- */
+  /* A 4px grid. Every gap in the app is one of these; nothing is eyeballed. */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -40,20 +70,35 @@
   --space-6: 2.5rem;
   --space-7: 4rem;
 
-  --radius: 2px;
+  --radius: 3px;
   --tap: 48px;
   --measure: 34rem;
+  /* A 1px border is a 3px slab on a phone. Real hairlines below. */
+  --hairline: 1px;
 
-  --motion-fast: 160ms;
-  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  /* ---- Motion --------------------------------------------------------- */
+  /* Critically damped: reaches the target and stops, no overshoot. Bounce is
+     reserved for motion the hand actually threw, and nothing here is thrown. */
+  --ease-settle: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-press: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-press: 100ms;
+  --dur-quick: 220ms;
+  --dur-settle: 380ms;
 }
 
-/* Midnight — night. Defined twice on purpose: once for the system default,
-   once for the explicit in-app toggle, so the toggle wins in both directions. */
+@media (min-resolution: 2dppx) {
+  :root {
+    --hairline: 0.5px;
+  }
+}
+
+/* ---- Midnight — night --------------------------------------------------
+   Defined twice on purpose: once for the system default, once for the
+   explicit in-app toggle, so the toggle wins in both directions. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --ground: #0b0e14;
-    --panel: #131824;
+    --panel: #141a27;
     --ink: #e8e3d8;
     --ink-muted: #8a8f9c;
     --rule: #313c52;
@@ -61,17 +106,19 @@
     --on-accent: #0b0e14;
     --focus: #c9a227;
     --lift: none;
+    --edge: inset 0 1px 0 rgba(232, 227, 216, 0.06);
   }
 }
 
 :root[data-theme='dark'] {
   --ground: #0b0e14;
-  --panel: #131824;
+  --panel: #141a27;
   --ink: #e8e3d8;
   --ink-muted: #8a8f9c;
-  --rule: #232b3a;
+  --rule: #313c52;
   --accent: #c9a227;
   --on-accent: #0b0e14;
   --focus: #c9a227;
   --lift: none;
+  --edge: inset 0 1px 0 rgba(232, 227, 216, 0.06);
 }
