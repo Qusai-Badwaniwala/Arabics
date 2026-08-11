@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+
+# Source material is large, personal, and often copyrighted — never committed.
+# manifest.json IS committed: it records what was extracted from what.
+content-inbox/**
+!content-inbox/README.md
+!content-inbox/manifest.json
+!content-inbox/*/.gitkeep
