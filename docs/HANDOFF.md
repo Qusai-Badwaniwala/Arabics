@@ -70,6 +70,33 @@ node scripts/manifest.mjs        # regenerate the content-inbox ledger
 **Never run a build while the dev server is running**, and stop `npm run
 preview` before `npm run gate` — the UI tests refuse to share port 4173.
 
+## Getting it onto the phone
+
+Measured 2026-08-11 against this build, not assumed:
+
+| Served at | `isSecureContext` | `navigator.serviceWorker` | App runs | Installable / offline |
+|---|---|---|---|---|
+| `http://localhost:4173` | true | present, controlling | yes | yes |
+| `http://192.168.x.x:4173` | **false** | **absent entirely** | yes | **no** |
+
+So plain LAN HTTP is fine for looking at the app and studying from it, and
+cannot install it or test offline — a service worker needs a secure context.
+Two ways round it, neither of which sends anything off this machine:
+
+1. **USB port forwarding (preferred).** Phone on USB with developer options and
+   USB debugging on; desktop Chrome → `chrome://inspect/#devices` → Port
+   forwarding → `4173` → `localhost:4173`. The phone then loads
+   `http://localhost:4173`, which *is* a secure context, so install and offline
+   both work properly.
+2. **Wi-Fi, with a flag.** `npm run preview -- --host`, then on the phone
+   `chrome://flags/#unsafely-treat-insecure-origin-as-secure` → add
+   `http://<this machine's LAN IP>:4173` → relaunch Chrome. Turn the flag off
+   afterwards.
+
+Windows Firewall will prompt on the first `--host` run; allow it on **private**
+networks only. (Checking the existing rules needs an elevated shell, so the
+current state is unverified.)
+
 ## The gate
 
 One chain, `npm run gate`:
