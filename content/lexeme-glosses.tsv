@@ -1,0 +1,311 @@
+# Hand-authored English glosses for the Quranic top-300 lemmas.
+# Every one of these is flagged `unverified` in the app until Phase 3's corpus
+# import checks it. They are my glosses, not a scholar's.
+#
+# Keyed by RANK, never by the Arabic string: re-typing a vocalised lemma is how
+# a join silently mismatches. The Arabic comes from the corpus spine and is
+# never transcribed here. `display` is the one exception — six corpus lemma
+# entries are not citable words (inflection fragments like جَرَيْ), so a correct
+# citation form is supplied by hand and flagged in the build.
+#
+# rank	gloss	display (optional)
+1	and
+2	the
+3	for; to; belonging to
+4	from; of
+5	so; then
+6	God
+7	what; not
+8	with; by; in
+9	no; not
+10	in
+11	indeed
+12	to say
+13	who; which
+14	on; upon; against
+15	to be
+16	this; that
+17	lord; master
+18	who; whoever
+19	to; towards
+20	if
+21	except
+22	that; to (before a verb)
+23	to believe
+24	question prefix: is it that…?
+25	attention prefix, as in "this here" and "O you"
+26	day
+27	from; about; away from
+28	earth; land
+29	when; whenever
+30	indeed; already
+31	a people; folk
+32	to know
+33	sign; verse
+34	that
+35	O — vocative prefix
+36	every; all
+37	not (negates a past action)
+38	to make; to appoint
+39	then; thereafter
+40	messenger
+41	punishment
+42	sky; heaven
+43	when (of the past)
+44	soul; self
+45	to disbelieve; to reject
+46	like; as
+47	thing
+48	or
+49	to come
+50	to do; to work
+51	to see
+52	to give
+53	between
+54	to come
+55	book; scripture
+56	truth; right
+57	emphatic ending: certainly
+58	before
+59	people; mankind
+60	to will; to wish
+61	which; whichever
+62	believer
+63	if (of something that did not happen)
+64	after
+65	with; at; in the presence of
+66	to create
+67	to send down
+68	good; better
+69	way; path
+70	to call a lie; to deny
+71	to call; to pray
+72	matter; command
+73	to guard oneself; to fear God
+74	when; not yet
+75	with
+76	all-knowing
+77	some; a part
+78	possessor of; the one with
+79	disbeliever
+80	last; final
+81	other than; not
+82	god; deity
+83	garden; paradise
+84	fire
+85	to guide
+86	below; other than
+87	until; even
+88	to want; to intend
+89	or (in questions)
+90	to follow
+91	Moses
+92	heart
+93	servant; slave
+94	to send
+95	perhaps; so that
+96	wrongdoer
+97	rather; but
+98	family; people of
+99	to take; to seize
+100	to take for oneself; to adopt
+101	to worship; to serve
+102	hand
+103	will (future prefix)
+104	clear; manifest
+105	merciful
+106	this world; the nearer life
+107	mercy
+108	to wrong; to do injustice
+109	great; mighty
+110	to find
+111	to ask
+112	never will (negates the future)
+113	knowledge
+114	reward; wage
+115	mighty; almighty
+116	to bring out; to expel
+117	wise
+118	to eat
+119	is it that…? (question word)
+120	religion; judgement
+121	word; saying
+122	forgiving
+123	is not
+124	satan; devil
+125	to do
+126	angel
+127	likeness; parable
+128	to look
+129	protector; ally
+130	wealth; property
+131	guidance
+132	night
+133	to remember; to mention
+134	bounty; favour
+135	to fear
+136	to kill
+137	how
+138	prayer
+139	first
+140	my dear son
+141	most; more
+142	to return
+143	companions; people of
+144	to hear
+145	to turn away; to take charge
+146	hell
+147	to command
+148	remembrance; reminder
+149	spouse; pair
+150	to enter
+151	life
+152	prophet
+153	if only; were it not for
+154	like; the same as
+155	brother
+156	one; anyone
+157	abiding; everlasting
+158	Pharaoh
+159	righteous
+160	to repay; to recompense
+161	world; the worlds
+162	painful
+163	to reveal; to inspire
+164	face
+165	to obey
+166	to associate partners with God
+167	human being
+168	clear proof
+169	to cast; to throw
+170	deed; work
+171	to promise
+172	Quran; recitation
+173	another
+174	few; little
+175	resurrection
+176	Abraham
+177	to spend
+178	right hand; oath
+179	house
+180	to forgive
+181	but
+182	but
+183	to strike; to befall
+184	fathers; forefathers
+185	to lead astray
+186	to love	أَحَبَّ
+187	community; nation
+188	many; much
+189	son
+190	to turn in repentance
+191	water
+192	righteous (deed)
+193	to earn
+194	to send down in stages
+195	to recite; to follow
+196	to provide for
+197	to decree; to settle
+198	women
+199	to help; to give victory
+200	truthful
+201	to be patient
+202	evil deed
+203	warner
+204	daytime
+205	eye; spring
+206	the Most Merciful
+207	town; village
+208	to flow; to run	جَرَى
+209	child; offspring
+210	to touch; to afflict
+211	severe; strong
+212	witness; martyr
+213	as for
+214	to strike; to set forth (a parable)
+215	provision
+216	to establish; to set up
+217	to fight
+218	river
+219	all together
+220	to go out
+221	to go astray
+222	to raise up; to send
+223	appointed term
+224	creation
+225	criminal; sinner
+226	to take heed; to remember
+227	to give life
+228	all-seeing
+229	beneath; under
+230	to destroy
+231	favour; blessing
+232	evil; harm
+233	death
+234	enemy
+235	to fabricate (a lie)
+236	one who guards himself; God-fearing
+237	most knowing
+238	the unseen
+239	to reason; to understand	عَقَلَ
+240	to increase
+241	promise
+242	to write; to prescribe
+243	sight
+244	the Hour; a moment
+245	abode; home
+246	dominion; kingship
+247	all-hearing
+248	to think; to suppose
+249	to give thanks
+250	father
+251	to inform
+252	to judge
+253	all-aware
+254	all-powerful
+255	to leave; to forsake
+256	path
+257	faith
+258	breast; chest
+259	to bear witness
+260	to warn
+261	one who associates partners with God
+262	to reckon; to think
+263	to possess	مَلَكَ
+264	to call out
+265	Noah
+266	praise
+267	light
+268	Israel
+269	to be able
+270	peace
+271	to glorify
+272	word
+273	to be admitted; to be made to enter
+274	recompense
+275	will; shall (of the future)
+276	to teach
+277	sea
+278	above
+279	to carry; to bear
+280	to punish
+281	glory be to Him
+282	to fear with awe
+283	great; big
+284	to reach; to attain
+285	to leave; to abandon
+286	to show	أَرَى
+287	how wretched is
+288	to put one's trust in God	تَوَكَّلَ
+289	to be arrogant
+290	woe
+291	to seek forgiveness
+292	to be guided
+293	partner (associated with God)
+294	reckoning; account
+295	name
+296	to die
+297	one who submits; Muslim
+298	permission
+299	behold!; unquestionably
+300	mountain

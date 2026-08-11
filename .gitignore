@@ -10,3 +10,7 @@ content-inbox/**
 !content-inbox/README.md
 !content-inbox/manifest.json
 !content-inbox/**/.gitkeep
+
+# Playwright
+test-results/
+playwright-report/

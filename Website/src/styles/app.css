@@ -1,0 +1,355 @@
+/* No colour literals here — see tokens.css. Physical left/right is a bug in
+   this app (mixed direction on every screen); logical properties only. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-read);
+  font-size: var(--step-body);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Every gap in this app is a flex `gap` from the token scale. Default text
+   margins fight it and win, which is what made the first card read as loose. */
+p,
+h1,
+h2 {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* ---- layout ------------------------------------------------------------ */
+
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-4) var(--space-6);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--tap);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.grow {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-5);
+}
+
+/* The study card is pinned to the top instead of centred. Centred, the panel
+   re-centres itself when the answer makes it taller, and the Arabic word slides
+   up the screen under the reader's eye. Growth has to go downwards only. */
+.grow.pinned {
+  justify-content: flex-start;
+  padding-block-start: var(--space-5);
+}
+
+/* ---- voices ------------------------------------------------------------ */
+
+/* The instrument voice: counts, labels, controls. Never the reading voice. */
+.chrome {
+  font-family: var(--font-chrome);
+  font-size: var(--step-chrome);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.data {
+  font-family: var(--font-chrome);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
+}
+
+.gloss {
+  font-size: var(--step-gloss);
+  line-height: 1.4;
+}
+
+/* ---- Arabic ------------------------------------------------------------ */
+
+/* Harakat are 2px marks stacked above the line. They need solid ground, high
+   contrast and room to breathe — never glass, never blur, never a gradient. */
+.arabic {
+  font-family: var(--font-read);
+  line-height: 2;
+  text-align: center;
+}
+
+.study {
+  font-size: var(--step-study);
+  /* Amiri's default Arabic is already generously spaced; the extra line-height
+     above stops the fatha/damma of one line touching the descenders above. */
+}
+
+.title-ar {
+  font-size: var(--step-title);
+}
+
+/* ---- surfaces ---------------------------------------------------------- */
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+  padding: var(--space-5) var(--space-4);
+}
+
+/* The study card is a fixed slab. Its height must not depend on whether the
+   answer is showing: the first build grew the panel on reveal, which pushed
+   the Arabic word up the screen at the exact moment the eye was on it. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: 20rem;
+}
+
+.word-slot {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 9.5rem;
+}
+
+/* One action zone at the bottom, always the same height, whether it holds one
+   button or four. */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 7rem;
+}
+
+/* A short centred divider, not a full-width line: at 1px the panel-on-panel
+   contrast of --rule disappears, and a scribal mark is closer to what this is. */
+.rule {
+  width: 3rem;
+  border: 0;
+  border-block-start: 1px solid var(--ink-muted);
+  margin: 0 auto;
+}
+
+/* ---- the root chip ----------------------------------------------------- */
+
+/* The signature. Every Arabic word is a root threaded through a pattern, and
+   this app is built on that fact, so the radicals are always visible as
+   discrete cells rather than implied by the word. */
+.root-chip {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.radical {
+  font-family: var(--font-read);
+  font-size: 1.5rem;
+  line-height: 1;
+  min-width: 2.25rem;
+  padding: var(--space-2);
+  text-align: center;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  color: var(--ink-muted);
+}
+
+/* ---- controls ---------------------------------------------------------- */
+
+.btn {
+  font-family: var(--font-chrome);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  min-height: var(--tap);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--panel);
+  transition: border-color var(--motion-fast) var(--ease);
+}
+
+.btn:hover {
+  border-color: var(--ink-muted);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  font-size: var(--step-body);
+  width: 100%;
+}
+
+.btn-quiet {
+  border-color: transparent;
+  background: none;
+  color: var(--ink-muted);
+  font-size: var(--step-chrome);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding-inline: var(--space-2);
+}
+
+.btn-quiet:hover {
+  color: var(--ink);
+  border-color: transparent;
+}
+
+/* Grades are told apart by label, position and the interval printed under
+   them — not by traffic-light colour. Nothing here scores the learner. */
+.grades {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+}
+
+.grade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: calc(var(--tap) + var(--space-5));
+  padding-inline: var(--space-1);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--panel);
+  font-family: var(--font-chrome);
+  font-size: var(--step-chrome);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: border-color var(--motion-fast) var(--ease);
+}
+
+.grade:hover {
+  border-color: var(--ink-muted);
+}
+
+.grade-again {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.grade small {
+  font-size: 0.6875rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- the reveal -------------------------------------------------------- */
+
+/* The word does not move when the answer appears. The gloss unrolls beneath
+   it, the way a marginal note sits under a line in a manuscript — so the eye
+   stays where the Arabic is. */
+.reveal {
+  animation: unroll var(--motion-fast) var(--ease) both;
+}
+
+@keyframes unroll {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+}
+
+.field {
+  font-family: var(--font-read);
+  font-size: var(--step-gloss);
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-3);
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius);
+}
+
+/* Keyboard hints are true only where there is a keyboard. */
+.kbd-hint {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .kbd-hint {
+    display: block;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

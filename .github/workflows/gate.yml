@@ -1,0 +1,20 @@
+name: gate
+
+# The same chain as `npm run gate` locally: format, lint, typecheck, unit
+# tests, content checks, build, UI tests. Nothing ships past a red gate.
+on:
+  push:
+  pull_request:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run gate

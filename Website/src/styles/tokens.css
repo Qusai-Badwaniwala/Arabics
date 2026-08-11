@@ -1,0 +1,77 @@
+/* The only file in the app allowed to contain a colour literal.
+   `tokens.test.ts` fails the build if a hex or colour function appears
+   anywhere else under src/ (CLAUDE.md rule 5, design spec §9).
+   vite.config.ts also parses --ground out of the :root block below for the
+   PWA manifest and <meta name="theme-color">, so the day block must stay
+   first and must stay plain `--name: value;` syntax. */
+
+:root {
+  /* Parchment — day */
+  --ground: #f4efe4;
+  --panel: #fbf7ef;
+  --ink: #1a1614;
+  --ink-muted: #6b6259;
+  --rule: #dcd3c2;
+  --accent: #8c3a2b;
+  --on-accent: #fbf7ef;
+  --focus: #8c3a2b;
+  /* Paper lifted off a desk. Night gets no shadow — there, lighter = raised. */
+  --lift:
+    0 1px 1px rgba(26, 22, 20, 0.05), 0 10px 28px -12px rgba(26, 22, 20, 0.18);
+
+  /* Type. Amiri carries every word the learner reads — Arabic and English
+     both — so the reading voice is one voice. system-ui is the instrument
+     voice: counts, labels, buttons. Two roles, one font file. */
+  --font-read: 'Amiri', 'Times New Roman', serif;
+  --font-chrome:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+  --step-study: clamp(3rem, 13vw, 4rem);
+  --step-title: clamp(2.75rem, 12vw, 3.5rem);
+  --step-gloss: 1.375rem;
+  --step-body: 1.0625rem;
+  --step-chrome: 0.75rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-7: 4rem;
+
+  --radius: 2px;
+  --tap: 48px;
+  --measure: 34rem;
+
+  --motion-fast: 160ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Midnight — night. Defined twice on purpose: once for the system default,
+   once for the explicit in-app toggle, so the toggle wins in both directions. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --ground: #0b0e14;
+    --panel: #131824;
+    --ink: #e8e3d8;
+    --ink-muted: #8a8f9c;
+    --rule: #313c52;
+    --accent: #c9a227;
+    --on-accent: #0b0e14;
+    --focus: #c9a227;
+    --lift: none;
+  }
+}
+
+:root[data-theme='dark'] {
+  --ground: #0b0e14;
+  --panel: #131824;
+  --ink: #e8e3d8;
+  --ink-muted: #8a8f9c;
+  --rule: #232b3a;
+  --accent: #c9a227;
+  --on-accent: #0b0e14;
+  --focus: #c9a227;
+  --lift: none;
+}

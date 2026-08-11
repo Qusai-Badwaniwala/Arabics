@@ -5,6 +5,126 @@ broke and how it was found, and what was tried and abandoned.
 
 ---
 
+## 2026-08-11 — Phases 0 and 1: the shell, the gate, and a usable review app
+
+Branch `phase-0-1`. The app now runs, installs, works offline, and can be
+studied from daily.
+
+### Built
+
+- **Phase 0.** Vite 8 + React 19 + TS 7, one `package.json` at the repo root
+  with `root: 'Website'`, so there is one install, one gate and one CI job.
+  `tokens.css` with both themes, Amiri bundled via `@fontsource`, PWA manifest
+  and service worker, icons, and the gate itself — `format · lint · typecheck ·
+  unit · content · build · UI`, wired identically into CI.
+- **Phase 1.** 300 lexemes and 172 roots; FSRS review with per-grade interval
+  previews; keyboard-only operation; TTS; IndexedDB persistence; JSON export
+  *and* import; per-word gloss correction stored in learner state.
+
+### Decided differently, and why
+
+- **The lexemes are derived, not hand-authored.** The spec expected 300
+  hand-written entries; the corpus was already on disk, so lemma, root, part of
+  speech and Quran frequency now come from the Quranic Arabic Corpus and only
+  the English glosses are mine. Less typing, and every mechanical field is
+  scholar-tagged rather than remembered. The gloss file is keyed by **rank**,
+  not by the Arabic string, so a mistyped diacritic cannot silently join the
+  wrong word to the wrong meaning.
+- **172 roots with no core gloss, instead of 60 roots with one.** Deriving a
+  root's meaning from its most frequent word ("سمو → sky") would have been a
+  guess presented as a fact. The root chip shows the radicals, which is true and
+  useful; the glosses get authored in Phase 4 where the root browser displays
+  them.
+- **Import shipped alongside export.** The spec justified export as insurance
+  against IndexedDB eviction. An export you cannot restore is not insurance, so
+  the claim would have been false without it.
+- **Gloss editing shipped in Phase 1, not later.** The design's stated
+  mitigation for "my glosses will be wrong" is that they are correctable
+  in-app. Shipping the wrong glosses without the correction would have made the
+  mitigation fiction.
+- **oxlint instead of eslint + typescript-eslint + plugins.** One binary, no
+  config file, react-hooks rules included. `--deny-warnings`, because a linter
+  whose warnings do not fail the gate is decoration.
+  *Ceiling:* no type-aware rules (`no-floating-promises`). `tsc` strict plus
+  `exactOptionalPropertyTypes` covers most of what that would have caught.
+- **No Inter, no EB Garamond.** Amiri carries every word the learner *reads*,
+  Arabic and English both; `system-ui` carries the instrument voice — counts,
+  labels, buttons. One font file instead of three, and the pairing is a
+  deliberate split of roles rather than a default.
+- **The PWA manifest's colours are parsed out of `tokens.css` at build time**
+  rather than re-typed in `vite.config.ts`. One source of truth by construction,
+  not by discipline. A UI test asserts the parse happened.
+- **`.mjs` scripts, not the spec's `build-content.ts`.** No ts-node, no build
+  step for the build step; matches `manifest.mjs`, which was already there.
+
+### Measured, not assumed
+
+Gate on 2026-08-11: **45 unit tests, 8 UI tests across 2 devices (16 runs)**,
+exit 0. Production bundle 280 KB (82 KB gzipped); precache 13 entries, 428 KiB.
+
+### What broke, and how it was found
+
+**Three defects. Two were found by using the app, not by the tests.**
+
+1. **Grades could be lost on leaving the page.** Saves were debounced 400 ms to
+   batch bursts. A Playwright test that graded a card and immediately reloaded
+   caught it: inside that window, the grade was gone. Reviews arrive seconds
+   apart — there was no burst to batch, and the loss is unrecoverable.
+   *Fix:* write on every grade, no debounce. `ponytail:` note left against the
+   single-blob write, saying to split into per-card rows rather than reinstate
+   the debounce.
+
+2. **The Arabic word slid up the screen when the answer appeared.** Found by
+   screenshotting the two card states and comparing, not by any assertion. The
+   panel was centred vertically, so revealing the gloss made it taller and
+   re-centred it — moving the word at the exact moment the eye was on it, which
+   the design explicitly forbids.
+   *Fix:* the card is pinned to the top of its region and the action zone has a
+   fixed height, so growth only goes downwards. A UI test now compares the
+   word's bounding box before and after the reveal.
+
+3. **Every gap in the app was wrong,** because `p` still had its default
+   margins fighting the flex `gap` tokens. Visible only by looking; no test
+   could have reached it. Also invisible in the same pass: the divider under the
+   word, a 1px `--rule` line on a panel one shade lighter than it. It is now a
+   short centred `--ink-muted` mark, which is both visible and closer to the
+   manuscript reference it came from.
+
+Two smaller ones, both caught by their own tests on first run: `formatInterval`
+reported 30 seconds as "1m" (rounding before thresholding — the scheduler was
+making a promise it had not made), and a test of mine asserted the daily budget
+by counting *all* due cards rather than new ones.
+
+**Both structural tests were proven to fail before being trusted** (rule 2): a
+`#8C3A2B` was pasted into `Home.tsx` and the colour-literal test was watched to
+fail on it; `THEME_KEY` was renamed and the drift test was watched to fail on
+that. `oxlint --deny-warnings` was likewise checked to exit 1 on a planted
+unused variable, and `build-content.mjs --check` to exit 1 on stale output.
+
+### Tried and abandoned
+
+- **Vertically centring the study card.** It looks better on a desktop and is
+  wrong on the thing that matters: see defect 2. Do not re-centre it.
+- **`@fontsource/inter` and `eb-garamond`.** Two more dependencies and ~150 KB
+  for a role `system-ui` fills at zero cost. If the type ever needs a specific
+  Latin voice, add one — not three.
+- **Top-level `await` in `main.tsx`.** Works, but leans on the build target
+  supporting it; a `.then(render).catch(fatal)` chain is the same length and
+  makes the failure path explicit.
+- **Testing-library and a jsdom environment.** Playwright already drives the
+  real built app on two devices. Four dependencies and a second rendering
+  environment to test the same components less faithfully.
+
+### Deliberate refusals
+
+`loadState` **throws** rather than returning an empty state when the stored blob
+cannot be read, and `main.tsx` renders a dead-end screen saying nothing was
+overwritten. Booting empty and then autosaving that emptiness is precisely how
+`manifest.mjs` destroyed its own ledger last session. Same reasoning in
+`migrate`: a state from a newer schema is refused, never downgraded.
+
+---
+
 ## 2026-08-11 — Design and seed corpus (pre-Phase 0)
 
 Commits `79a8998`, `76db2c4`, `8d9c8d4`, `b6d514f`.

@@ -1,0 +1,12 @@
+dist/
+content-inbox/
+Website/src/content/*.json
+package-lock.json
+
+# Prose is hand-wrapped; prettier reflows it into a different document.
+*.md
+test-results/
+playwright-report/
+
+# Not this project's files.
+.remember/

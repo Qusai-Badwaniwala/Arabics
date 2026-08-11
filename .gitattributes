@@ -1,0 +1,4 @@
+# Keep LF in the working tree on Windows too. Without this, git checks files out
+# as CRLF here and `prettier --check` — which defaults to LF — fails the gate on
+# every file in the repo immediately after a clone.
+* text=auto eol=lf

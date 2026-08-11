@@ -1,0 +1,301 @@
+rank	lemma	display	root	pos	gloss
+1	و	و		particle	and
+2	ال	ال		particle	the
+3	ل	ل		particle	for; to; belonging to
+4	مِن	مِن		particle	from; of
+5	ف	ف		particle	so; then
+6	اللَّه	اللَّه	أله	noun	God
+7	ما	ما		noun	what; not
+8	ب	ب		particle	with; by; in
+9	لا	لا		particle	no; not
+10	فِي	فِي		particle	in
+11	إِنّ	إِنّ		particle	indeed
+12	قالَ	قالَ	قول	verb	to say
+13	الَّذِي	الَّذِي		noun	who; which
+14	عَلَى	عَلَى		particle	on; upon; against
+15	كانَ	كانَ	كون	verb	to be
+16	ذا	ذا		noun	this; that
+17	رَبّ	رَبّ	ربب	noun	lord; master
+18	مَن	مَن		noun	who; whoever
+19	إِلَى	إِلَى		particle	to; towards
+20	إِن	إِن		particle	if
+21	إِلّا	إِلّا		particle	except
+22	أَن	أَن		particle	that; to (before a verb)
+23	آمَنَ	آمَنَ	أمن	verb	to believe
+24	أ	أ		particle	question prefix: is it that…?
+25	ه	ه		particle	attention prefix, as in "this here" and "O you"
+26	يَوْم	يَوْم	يوم	noun	day
+27	عَن	عَن		particle	from; about; away from
+28	أَرْض	أَرْض	أرض	noun	earth; land
+29	إِذا	إِذا		noun	when; whenever
+30	قَد	قَد		particle	indeed; already
+31	قَوْم	قَوْم	قوم	noun	a people; folk
+32	عَلِمَ	عَلِمَ	علم	verb	to know
+33	آيَة	آيَة	أيي	noun	sign; verse
+34	أَنّ	أَنّ		particle	that
+35	ي	ي		particle	O — vocative prefix
+36	كُلّ	كُلّ	كلل	noun	every; all
+37	لَم	لَم		particle	not (negates a past action)
+38	جَعَلَ	جَعَلَ	جعل	verb	to make; to appoint
+39	ثُمّ	ثُمّ		particle	then; thereafter
+40	رَسُول	رَسُول	رسل	noun	messenger
+41	عَذاب	عَذاب	عذب	noun	punishment
+42	سَماء	سَماء	سمو	noun	sky; heaven
+43	إِذ	إِذ		noun	when (of the past)
+44	نَفْس	نَفْس	نفس	noun	soul; self
+45	كَفَرَ	كَفَرَ	كفر	verb	to disbelieve; to reject
+46	ك	ك		particle	like; as
+47	شَىْء	شَىْء	شيأ	noun	thing
+48	أَو	أَو		particle	or
+49	جاءَ	جاءَ	جيأ	verb	to come
+50	عَمِلَ	عَمِلَ	عمل	verb	to do; to work
+51	رَأَى	رَأَى	رأي	verb	to see
+52	آتَى	آتَى	أتي	verb	to give
+53	بَيْن	بَيْن	بين	noun	between
+54	أَتَى	أَتَى	أتي	verb	to come
+55	كِتاب	كِتاب	كتب	noun	book; scripture
+56	حَقّ	حَقّ	حقق	noun	truth; right
+57	ن	ن		particle	emphatic ending: certainly
+58	قَبْل	قَبْل	قبل	noun	before
+59	ناس	ناس	أنس	noun	people; mankind
+60	شاءَ	شاءَ	شيأ	verb	to will; to wish
+61	أَيّ	أَيّ	أيي	noun	which; whichever
+62	مُؤْمِن	مُؤْمِن	أمن	noun	believer
+63	لَو	لَو		particle	if (of something that did not happen)
+64	بَعْد	بَعْد	بعد	noun	after
+65	عِند	عِند	عند	noun	with; at; in the presence of
+66	خَلَقَ	خَلَقَ	خلق	verb	to create
+67	أَنزَلَ	أَنزَلَ	نزل	verb	to send down
+68	خَيْر	خَيْر	خير	noun	good; better
+69	سَبِيل	سَبِيل	سبل	noun	way; path
+70	كَذَّبَ	كَذَّبَ	كذب	verb	to call a lie; to deny
+71	دَعا	دَعا	دعو	verb	to call; to pray
+72	أَمْر	أَمْر	أمر	noun	matter; command
+73	اتَّقَى	اتَّقَى	وقي	verb	to guard oneself; to fear God
+74	لَمّا	لَمّا		noun	when; not yet
+75	مَع	مَع		noun	with
+76	عَلِيم	عَلِيم	علم	noun	all-knowing
+77	بَعْض	بَعْض	بعض	noun	some; a part
+78	ذُو	ذُو		noun	possessor of; the one with
+79	كافِر	كافِر	كفر	noun	disbeliever
+80	آخِر	آخِر	أخر	noun	last; final
+81	غَيْر	غَيْر	غير	noun	other than; not
+82	إِلٰه	إِلٰه	أله	noun	god; deity
+83	جَنَّة	جَنَّة	جنن	noun	garden; paradise
+84	نار	نار	نور	noun	fire
+85	هَدَى	هَدَى	هدي	verb	to guide
+86	دُون	دُون	دون	noun	below; other than
+87	حَتَّى	حَتَّى		particle	until; even
+88	أَرادَ	أَرادَ	رود	verb	to want; to intend
+89	أَم	أَم		particle	or (in questions)
+90	اتَّبَعَ	اتَّبَعَ	تبع	verb	to follow
+91	مُوسَى	مُوسَى		noun	Moses
+92	قَلْب	قَلْب	قلب	noun	heart
+93	عَبْد	عَبْد	عبد	noun	servant; slave
+94	أَرْسَلَ	أَرْسَلَ	رسل	verb	to send
+95	لَعَلّ	لَعَلّ		particle	perhaps; so that
+96	ظالِم	ظالِم	ظلم	noun	wrongdoer
+97	بَل	بَل		particle	rather; but
+98	أَهْل	أَهْل	أهل	noun	family; people of
+99	أَخَذَ	أَخَذَ	أخذ	verb	to take; to seize
+100	اتَّخَذَ	اتَّخَذَ	أخذ	verb	to take for oneself; to adopt
+101	عَبَدَ	عَبَدَ	عبد	verb	to worship; to serve
+102	يَد	يَد	يدي	noun	hand
+103	س	س		particle	will (future prefix)
+104	مُبِين	مُبِين	بين	noun	clear; manifest
+105	رَحِيم	رَحِيم	رحم	noun	merciful
+106	دُنْيا	دُنْيا	دنو	noun	this world; the nearer life
+107	رَحْمَة	رَحْمَة	رحم	noun	mercy
+108	ظَلَمَ	ظَلَمَ	ظلم	verb	to wrong; to do injustice
+109	عَظِيم	عَظِيم	عظم	noun	great; mighty
+110	وَجَدَ	وَجَدَ	وجد	verb	to find
+111	سَأَلَ	سَأَلَ	سأل	verb	to ask
+112	لَن	لَن		particle	never will (negates the future)
+113	عِلْم	عِلْم	علم	noun	knowledge
+114	أَجْر	أَجْر	أجر	noun	reward; wage
+115	عَزِيز	عَزِيز	عزز	noun	mighty; almighty
+116	أَخْرَجَ	أَخْرَجَ	خرج	verb	to bring out; to expel
+117	حَكِيم	حَكِيم	حكم	noun	wise
+118	أَكَلَ	أَكَلَ	أكل	verb	to eat
+119	هَل	هَل		particle	is it that…? (question word)
+120	دِين	دِين	دين	noun	religion; judgement
+121	قَوْل	قَوْل	قول	noun	word; saying
+122	غَفُور	غَفُور	غفر	noun	forgiving
+123	لَيْسَ	لَيْسَ	ليس	verb	is not
+124	شَيْطان	شَيْطان	شطن	noun	satan; devil
+125	فَعَلَ	فَعَلَ	فعل	verb	to do
+126	مَلَك	مَلَك	ملك	noun	angel
+127	مَثَل	مَثَل	مثل	noun	likeness; parable
+128	نَظَرَ	نَظَرَ	نظر	verb	to look
+129	وَلِيّ	وَلِيّ	ولي	noun	protector; ally
+130	مال	مال	مول	noun	wealth; property
+131	هُدًى	هُدًى	هدي	noun	guidance
+132	لَيْل	لَيْل	ليل	noun	night
+133	ذَكَرَ	ذَكَرَ	ذكر	verb	to remember; to mention
+134	فَضْل	فَضْل	فضل	noun	bounty; favour
+135	خافَ	خافَ	خوف	verb	to fear
+136	قَتَلَ	قَتَلَ	قتل	verb	to kill
+137	كَيْف	كَيْف	كيف	noun	how
+138	صَلاة	صَلاة	صلو	noun	prayer
+139	أَوَّل	أَوَّل	أول	noun	first
+140	بُنَىّ	بُنَىّ	بني	noun	my dear son
+141	أَكْثَر	أَكْثَر	كثر	noun	most; more
+142	رَجَعَ	رَجَعَ	رجع	verb	to return
+143	أَصْحاب	أَصْحاب	صحب	noun	companions; people of
+144	سَمِعَ	سَمِعَ	سمع	verb	to hear
+145	تَوَلَّى	تَوَلَّى	ولي	verb	to turn away; to take charge
+146	جَهَنَّم	جَهَنَّم		noun	hell
+147	أَمَرَ	أَمَرَ	أمر	verb	to command
+148	ذِكْر	ذِكْر	ذكر	noun	remembrance; reminder
+149	زَوْج	زَوْج	زوج	noun	spouse; pair
+150	دَخَلَ	دَخَلَ	دخل	verb	to enter
+151	حَياة	حَياة	حيي	noun	life
+152	نَبِيّ	نَبِيّ	نبأ	noun	prophet
+153	لَوْلا	لَوْلا		particle	if only; were it not for
+154	مِثْل	مِثْل	مثل	noun	like; the same as
+155	أَخ	أَخ	أخو	noun	brother
+156	أَحَد	أَحَد	أحد	noun	one; anyone
+157	خالِد	خالِد	خلد	noun	abiding; everlasting
+158	فِرْعَوْن	فِرْعَوْن		noun	Pharaoh
+159	صالِح	صالِح	صلح	noun	righteous
+160	جَزَى	جَزَى	جزي	verb	to repay; to recompense
+161	عالَم	عالَم	علم	noun	world; the worlds
+162	أَلِيم	أَلِيم	ألم	noun	painful
+163	أَوْحَى	أَوْحَى	وحي	verb	to reveal; to inspire
+164	وَجْه	وَجْه	وجه	noun	face
+165	أَطاعَ	أَطاعَ	طوع	verb	to obey
+166	أَشْرَكَ	أَشْرَكَ	شرك	verb	to associate partners with God
+167	إِنسان	إِنسان	أنس	noun	human being
+168	بَيِّنَة	بَيِّنَة	بين	noun	clear proof
+169	أَلْقَى	أَلْقَى	لقي	verb	to cast; to throw
+170	عَمَل	عَمَل	عمل	noun	deed; work
+171	وَعَدَ	وَعَدَ	وعد	verb	to promise
+172	قُرْءان	قُرْءان	قرأ	noun	Quran; recitation
+173	آخَر	آخَر	أخر	noun	another
+174	قَلِيل	قَلِيل	قلل	noun	few; little
+175	قِيامَة	قِيامَة	قوم	noun	resurrection
+176	إِبْراهِيم	إِبْراهِيم		noun	Abraham
+177	أَنفَقَ	أَنفَقَ	نفق	verb	to spend
+178	يَمِين	يَمِين	يمن	noun	right hand; oath
+179	بَيْت	بَيْت	بيت	noun	house
+180	غَفَرَ	غَفَرَ	غفر	verb	to forgive
+181	لٰكِنّ	لٰكِنّ		particle	but
+182	لٰكِن	لٰكِن		particle	but
+183	أَصابَ	أَصابَ	صوب	verb	to strike; to befall
+184	آباء	آباء	أبو	noun	fathers; forefathers
+185	أَضَلَّ	أَضَلَّ	ضلل	verb	to lead astray
+186	أَحْبَبْ	أَحَبَّ	حبب	verb	to love
+187	أُمَّة	أُمَّة	أمم	noun	community; nation
+188	كَثِير	كَثِير	كثر	noun	many; much
+189	ابْن	ابْن	بني	noun	son
+190	تابَ	تابَ	توب	verb	to turn in repentance
+191	ماء	ماء	موه	noun	water
+192	صالِحَة	صالِحَة	صلح	noun	righteous (deed)
+193	كَسَبَ	كَسَبَ	كسب	verb	to earn
+194	نَزَّلَ	نَزَّلَ	نزل	verb	to send down in stages
+195	تَلَى	تَلَى	تلو	verb	to recite; to follow
+196	رَزَقَ	رَزَقَ	رزق	verb	to provide for
+197	قَضَى	قَضَى	قضي	verb	to decree; to settle
+198	نِساء	نِساء	نسو	noun	women
+199	نَصَرَ	نَصَرَ	نصر	verb	to help; to give victory
+200	صادِق	صادِق	صدق	noun	truthful
+201	صَبَرَ	صَبَرَ	صبر	verb	to be patient
+202	سَيِّئَة	سَيِّئَة	سوأ	noun	evil deed
+203	نَذِير	نَذِير	نذر	noun	warner
+204	نَهار	نَهار	نهر	noun	daytime
+205	عَيْن	عَيْن	عين	noun	eye; spring
+206	رَحْمٰن	رَحْمٰن	رحم	noun	the Most Merciful
+207	قَرْيَة	قَرْيَة	قري	noun	town; village
+208	جَرَيْ	جَرَى	جري	verb	to flow; to run
+209	وَلَد	وَلَد	ولد	noun	child; offspring
+210	مَسَّ	مَسَّ	مسس	verb	to touch; to afflict
+211	شَدِيد	شَدِيد	شدد	noun	severe; strong
+212	شَهِيد	شَهِيد	شهد	noun	witness; martyr
+213	أَمّا	أَمّا		particle	as for
+214	ضَرَبَ	ضَرَبَ	ضرب	verb	to strike; to set forth (a parable)
+215	رِزْق	رِزْق	رزق	noun	provision
+216	أَقامَ	أَقامَ	قوم	verb	to establish; to set up
+217	قاتَلَ	قاتَلَ	قتل	verb	to fight
+218	نَهَر	نَهَر	نهر	noun	river
+219	جَمِيع	جَمِيع	جمع	noun	all together
+220	خَرَجَ	خَرَجَ	خرج	verb	to go out
+221	ضَلَّ	ضَلَّ	ضلل	verb	to go astray
+222	بَعَثَ	بَعَثَ	بعث	verb	to raise up; to send
+223	أَجَل	أَجَل	أجل	noun	appointed term
+224	خَلْق	خَلْق	خلق	noun	creation
+225	مُجْرِم	مُجْرِم	جرم	noun	criminal; sinner
+226	تَذَكَّرَ	تَذَكَّرَ	ذكر	verb	to take heed; to remember
+227	أَحْيا	أَحْيا	حيي	verb	to give life
+228	بَصِير	بَصِير	بصر	noun	all-seeing
+229	تَحْت	تَحْت	تحت	noun	beneath; under
+230	أَهْلَكَ	أَهْلَكَ	هلك	verb	to destroy
+231	نِعْمَة	نِعْمَة	نعم	noun	favour; blessing
+232	سُوء	سُوء	سوأ	noun	evil; harm
+233	مَوْت	مَوْت	موت	noun	death
+234	عَدُوّ	عَدُوّ	عدو	noun	enemy
+235	افْتَرَى	افْتَرَى	فري	verb	to fabricate (a lie)
+236	مُتَّقي	مُتَّقي	وقي	noun	one who guards himself; God-fearing
+237	أَعْلَم	أَعْلَم	علم	noun	most knowing
+238	غَيْب	غَيْب	غيب	noun	the unseen
+239	عَقَلُ	عَقَلَ	عقل	verb	to reason; to understand
+240	زادَ	زادَ	زيد	verb	to increase
+241	وَعْد	وَعْد	وعد	noun	promise
+242	كَتَبَ	كَتَبَ	كتب	verb	to write; to prescribe
+243	بَصَر	بَصَر	بصر	noun	sight
+244	ساعَة	ساعَة	سوع	noun	the Hour; a moment
+245	دار	دار	دور	noun	abode; home
+246	مُلْك	مُلْك	ملك	noun	dominion; kingship
+247	سَمِيع	سَمِيع	سمع	noun	all-hearing
+248	ظَنَّ	ظَنَّ	ظنن	verb	to think; to suppose
+249	شَكَرَ	شَكَرَ	شكر	verb	to give thanks
+250	أَب	أَب	أبو	noun	father
+251	نَبَّأَ	نَبَّأَ	نبأ	verb	to inform
+252	حَكَمَ	حَكَمَ	حكم	verb	to judge
+253	خَبِير	خَبِير	خبر	noun	all-aware
+254	قَدِير	قَدِير	قدر	noun	all-powerful
+255	يَذَرَ	يَذَرَ	وذر	verb	to leave; to forsake
+256	صِراط	صِراط	صرط	noun	path
+257	إِيمان	إِيمان	أمن	noun	faith
+258	صَدْر	صَدْر	صدر	noun	breast; chest
+259	شَهِدَ	شَهِدَ	شهد	verb	to bear witness
+260	أَنذَرَ	أَنذَرَ	نذر	verb	to warn
+261	مُشْرِك	مُشْرِك	شرك	noun	one who associates partners with God
+262	حَسِبَ	حَسِبَ	حسب	verb	to reckon; to think
+263	مَلَكَتْ	مَلَكَ	ملك	verb	to possess
+264	نادَى	نادَى	ندي	verb	to call out
+265	نُوح	نُوح		noun	Noah
+266	حَمْد	حَمْد	حمد	noun	praise
+267	نُور	نُور	نور	noun	light
+268	إِسْرائِيل	إِسْرائِيل		noun	Israel
+269	اسْتَطاعَ	اسْتَطاعَ	طوع	verb	to be able
+270	سَلام	سَلام	سلم	noun	peace
+271	سَبَّحَ	سَبَّحَ	سبح	verb	to glorify
+272	كَلِمَة	كَلِمَة	كلم	noun	word
+273	أُدْخِلَ	أُدْخِلَ	دخل	verb	to be admitted; to be made to enter
+274	جَزاء	جَزاء	جزي	noun	recompense
+275	سَوْف	سَوْف		particle	will; shall (of the future)
+276	عَلَّمَ	عَلَّمَ	علم	verb	to teach
+277	بَحْر	بَحْر	بحر	noun	sea
+278	فَوْق	فَوْق	فوق	noun	above
+279	حَمَلَ	حَمَلَ	حمل	verb	to carry; to bear
+280	عَذَّبَ	عَذَّبَ	عذب	verb	to punish
+281	سُبْحان	سُبْحان	سبح	noun	glory be to Him
+282	خَشِيَ	خَشِيَ	خشي	verb	to fear with awe
+283	كَبِير	كَبِير	كبر	noun	great; big
+284	بَلَغَ	بَلَغَ	بلغ	verb	to reach; to attain
+285	تَرَكَ	تَرَكَ	ترك	verb	to leave; to abandon
+286	أَرَيْ	أَرَى	رأي	verb	to show
+287	بِئْسَ	بِئْسَ	بأس	verb	how wretched is
+288	تَوَكَّلْ	تَوَكَّلَ	وكل	verb	to put one's trust in God
+289	اسْتَكْبَرَ	اسْتَكْبَرَ	كبر	verb	to be arrogant
+290	وَيْل	وَيْل		noun	woe
+291	اسْتَغْفَرَ	اسْتَغْفَرَ	غفر	verb	to seek forgiveness
+292	اهْتَدَى	اهْتَدَى	هدي	verb	to be guided
+293	شَرِيك	شَرِيك	شرك	noun	partner (associated with God)
+294	حِساب	حِساب	حسب	noun	reckoning; account
+295	اسْم	اسْم	سمو	noun	name
+296	ماتَ	ماتَ	موت	verb	to die
+297	مُسْلِم	مُسْلِم	سلم	noun	one who submits; Muslim
+298	إِذْن	إِذْن	أذن	noun	permission
+299	أَلا	أَلا		particle	behold!; unquestionably
+300	جَبَل	جَبَل	جبل	noun	mountain

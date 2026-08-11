@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Arabic Mastery</title>
+    <script>
+      // Applied before first paint so opening the app at night never flashes
+      // parchment. The key is asserted equal to theme.ts's by a unit test.
+      try {
+        var t = localStorage.getItem('am-theme');
+        if (t) document.documentElement.dataset.theme = t;
+      } catch (e) {
+        /* private mode: fall back to prefers-color-scheme */
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
