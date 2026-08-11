@@ -124,15 +124,32 @@ Estimates assume 50 min/day held honestly. **Cumulative to Level 6: 20–24
 months.** The method does not remove the hours; it stops ~80% of them being
 wasted on flat vocabulary lists and premature grammar tables.
 
-| # | Name | Dominant | Vocab / roots | Exit test (administered by the app) |
-|---|---|---|---|---|
-| 1 | Decode & Anchor | Read | 300 / 60 | Read an unseen vocalised 100-word text aloud; answer 5 comprehension questions |
-| 2 | Sentence Sense | Read | 700 / 150 | Translate an unseen vocalised paragraph; **derive** 3 never-seen words from owned roots |
-| 3 | Verb Engine | Write | 1200 / 250 | Conjugate any owned root in any form; produce 10 sentences from a prompt |
-| 4 | Bare Text | Read | 2000 / 350 | Read an **unvocalised** paragraph cold at 90% comprehension |
-| 5 | Ear | Listen | 3000 / 420 | Transcribe and understand 60s of unseen natural-speed audio |
-| 6 | Mouth | Speak | 4000 / 480 | 3-minute unscripted monologue on a random prompt, self-scored to a rubric |
-| 7 | Wild | All | 5000+ | Real books. I'rāb and case endings taught properly here |
+| # | Name | Dominant | Vocab / roots | Quran words readable | Exit test (administered by the app) |
+|---|---|---|---|---|---|
+| 1 | Decode & Anchor | Read | 300 / 60 | **74.2%** | Read an unseen vocalised 100-word text aloud; answer 5 comprehension questions |
+| 2 | Sentence Sense | Read | 700 / 150 | **85.5%** | Translate an unseen vocalised paragraph; **derive** 3 never-seen words from owned roots |
+| 3 | Verb Engine | Write | 1200 / 250 | **91.1%** | Conjugate any owned root in any form; produce 10 sentences from a prompt |
+| 4 | Bare Text | Read | 2000 / 350 | **95.2%** | Read an **unvocalised** paragraph cold at 90% comprehension |
+| 5 | Ear | Listen | 3000 / 420 | **97.7%** | Transcribe and understand 60s of unseen natural-speed audio |
+| 6 | Mouth | Speak | 4000 / 480 | **99.0%** | 3-minute unscripted monologue on a random prompt, self-scored to a rubric |
+| 7 | Wild | All | 4776 = all of it | **100%** | Real books. I'rāb and case endings taught properly here |
+
+**The coverage column is measured, not estimated.** Derived on 2026-08-11 from the
+Quranic Arabic Corpus morphology data (`scripts/` derivation, output at
+`content-inbox/vocabulary/quran-lemma-frequency-DERIVED.tsv`). A word counts as
+readable only when **every** lemma-bearing morpheme in it is known — the honest
+metric, not morpheme-level coverage, which flatters by roughly five points.
+
+Three findings that shaped the table:
+
+- **The entire Quran is 76,572 words drawn from only 4,776 unique lemmas.** The
+  finish line is a concrete, countable object, not an open horizon.
+- **451 lemmas gets you 80% of Quran words**, which independently confirms the
+  ~300-word claim in *80% of Qur'anic Words* (that book counts morphemes; 272
+  lemmas hits 80% on that measure).
+- **Level 4's 2,000-word target lands at 95.2%** — exactly the threshold the
+  graded reader uses. So at Level 4 the Quran itself becomes valid reader input.
+  That is the single most important scheduling fact in this design.
 
 Grammar introduced per level: L1 nominal sentence, pronouns, definiteness ·
 L2 iḍāfa, adjective agreement, the 10 forms *recognised* · L3 past/present/
@@ -187,11 +204,28 @@ Qusai drops files any time and says "process the inbox". Extraction is
 **idempotent** — `manifest.json` records a hash per source file, so re-running
 never duplicates lexemes and never overwrites hand-corrected glosses.
 
-**Seed sources** (fetched in Phase 3, all free/public domain):
-Quranic Arabic Corpus (word-by-word root/lemma/morphology tagging of the entire
-Quran — effectively a prebuilt root atlas), Madinah Arabic Course books 1–3,
-Qasas an-Nabiyyīn and Al-Qirā'ah al-Rāshidah (graded classical readers),
-Al-Ājurrūmiyyah, Lane's Lexicon, Wright's Grammar.
+**Seed sources — fetched 2026-08-11, 25 files, 0.69 GB**, all recorded in
+`manifest.json` with sha256, source URL and licence:
+
+| Source | Why it matters |
+|---|---|
+| Quranic Arabic Corpus morphology (GPL) | Root + lemma + POS for all 130,030 Quran morphemes. The root atlas. |
+| Tanzil Quran text ×3 (uthmani / simple / simple-clean) | Vocalised **and** bare renderings of the same text — ground truth for the harakat fade |
+| Lane's Lexicon Quranic roots (JSON, 1,651 roots) | Verbatim Lane definitions + morphological forms with occurrence counts + Quran frequency |
+| Lane's Lexicon full Perseus XML | The complete classical dictionary, structured |
+| kaikki Arabic Wiktionary (512 MB JSONL) | Glosses, roots and forms for non-Quranic vocabulary |
+| Madinah Durus books 1–3 + English keys | The Arabic-only course; keys are the gloss source |
+| Wright's Grammar vols 1–2 (PDF + OCR) | English reference grammar |
+| Al-Ājurrūmiyyah matn + 2 English commentaries | The classical grammar primer for Level 7 |
+
+**Not fetched, deliberately:** the official corpus.quran.com download requires
+submitting an email address. GPL mirrors carrying identical data need no
+submission, so no data left this machine.
+
+**Still needed** (Qusai is sourcing): Qasas an-Nabiyyīn and Al-Qirā'ah
+al-Rāshidah — the graded classical readers. These are the largest remaining gap,
+because Level 2–4 input depends on graded prose and nothing fetched so far
+provides it.
 
 Phase 1 does not wait on any of this: 300 lexemes and 60 roots are hand-authored.
 

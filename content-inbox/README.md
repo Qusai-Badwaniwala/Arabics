@@ -37,20 +37,28 @@ Drop files in batches or one at a time. There's no wrong moment.
 
 ## Shopping list
 
-Free / public domain — worth grabbing first:
+Already fetched — 2026-08-11, 25 files, 0.69 GB. See `manifest.json` for sha256,
+source URL and licence on every one:
 
-- [ ] **Quranic Arabic Corpus** — corpus.quran.com. Word-by-word root, lemma and
-      morphology tagging for the whole Quran. The single most valuable dataset
-      for this app. → `quran/`
-- [ ] **Madinah Arabic Course** (دروس اللغة العربية), Dr. V. Abdur Rahim, books 1–3.
-      Free PDFs from the publisher. Arabic-only, no transliteration. → `grammar/`
+- [x] **Quranic Arabic Corpus morphology** — root, lemma and POS for all 130,030
+      Quran morphemes. → `quran/quran-morphology.txt`
+- [x] **Quran text, 3 vocalisation variants** (Tanzil) — uthmani, simple
+      vocalised, simple-clean. → `quran/`
+- [x] **Lane's Lexicon — Quranic roots** (1,651 roots, JSON) and the **full
+      Perseus XML**. → `vocabulary/`
+- [x] **kaikki Arabic Wiktionary** — 512 MB JSONL, every Arabic entry with senses,
+      roots and forms. → `vocabulary/`
+- [x] **Madinah Arabic Course books 1–3 + English keys**. → `grammar/`
+- [x] **Wright, *A Grammar of the Arabic Language*** vols 1–2, PDF + OCR text. → `grammar/`
+- [x] **Al-Ājurrūmiyyah** — Arabic matn, Hamza Yusuf translation, and the
+      at-Tuḥfa as-Saniyya commentary with English notes. → `grammar/`
+
+Still needed — **the readers are the real gap.** Level 2–4 input depends on
+graded classical prose, and nothing fetched so far provides it:
+
 - [ ] **Qasas an-Nabiyyīn** (قصص النبيين), Abul Hasan Ali Nadwi. The best graded
-      classical reader there is. → `readers/`
+      classical reader there is. **Highest priority.** → `readers/`
 - [ ] **Al-Qirā'ah al-Rāshidah** (القراءة الراشدة), Nadwi. Companion reader. → `readers/`
-- [ ] **Al-Ājurrūmiyyah** (الآجرومية) — get an edition with commentary, e.g.
-      *at-Tuḥfa as-Saniyya*. → `grammar/`
-- [ ] **Lane's Arabic-English Lexicon** — the classical dictionary. → `vocabulary/`
-- [ ] **Wright, *A Grammar of the Arabic Language*** — English reference grammar. → `grammar/`
 - [ ] **Husary or Minshawi *muʿallim* recitation** — slow, deliberately
       articulated. Best free native audio for classical pronunciation. → `audio/`
 

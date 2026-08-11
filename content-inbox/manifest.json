@@ -1,4 +1,256 @@
 {
   "version": 1,
-  "sources": []
+  "generated": "2026-08-11T08:05:34.685Z",
+  "sources": [
+    {
+      "path": "grammar/ajurrumiyyah-en-hamza-yusuf.pdf",
+      "sha256": "87f90b63ec878fae7fddfa1d268b9ff78604486b098ed2e438c4764f737351e3",
+      "bytes": 1998963,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/al_ajurrumiyyah",
+      "licence": "Translation © Hamza Yusuf; archived copy",
+      "notes": "English translation of the matn.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/ajurrumiyyah-matn-arabic.pdf",
+      "sha256": "d67d0a63f34747d477a87470f40557e9957bf8fab244d8619e52a05227fd03ed",
+      "bytes": 1308154,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/ajouroumiyyah",
+      "licence": "Public domain (Ibn Ajurrum, d. 1323)",
+      "notes": "The classical grammar primer, Arabic matn.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/ajurrumiyyah-matn-arabic.txt",
+      "sha256": "cf38c8125f00e1a4393bf39f1209102b870579dbb4a0e37e305b743ca9392004",
+      "bytes": 68812,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/ajouroumiyyah",
+      "licence": "Public domain",
+      "notes": "OCR of the matn — Arabic OCR, verify before use.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/ajurrumiyyah-tuhfa-saniyya-commentary-en.pdf",
+      "sha256": "38b0f43af1f203d5386351edcf834058123e0e38872ebc323f1a1e92570bb24e",
+      "bytes": 199164,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/al_ajurrumiyyah",
+      "licence": "archived copy",
+      "notes": "at-Tuhfa as-Saniyya commentary with English notes.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/madinah-durus-book1.pdf",
+      "sha256": "50c403ad878d08322d7b4f54f57a6039adef4e4d9e4e41be85990fbd39cfc17d",
+      "bytes": 9222397,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/MadinaArabicBooks",
+      "licence": "Dr V. Abdur Rahim — freely distributed for study",
+      "notes": "Durus al-Lughah book 1. Arabic-only, no transliteration.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/madinah-durus-book2.pdf",
+      "sha256": "ba76168ac057459fd02d64d3c9565b39954aa557d44a6b369e23c4b506a3d4fc",
+      "bytes": 15519595,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/MadinaArabicBooks",
+      "licence": "freely distributed for study",
+      "notes": "Durus al-Lughah book 2.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/madinah-durus-book3.pdf",
+      "sha256": "e844a5361d8ddf2b23d2c07791eed7550a0145772b0ade800c399adf933e693e",
+      "bytes": 14337442,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/MadinaArabicBooks",
+      "licence": "freely distributed for study",
+      "notes": "Durus al-Lughah book 3.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/madinah-key-book1-en.pdf",
+      "sha256": "e5635fb39d80596f4183582be026cf905ad1bd192e6a05b6da7e1998724aa550",
+      "bytes": 7754348,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/MadinaArabicBooks",
+      "licence": "freely distributed for study",
+      "notes": "English key — the gloss source for book 1 vocabulary.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/madinah-key-book2-en.pdf",
+      "sha256": "f19062dae6406c16b7aa0f845f03d4c2177d21b575f5a4492d473486b262c405",
+      "bytes": 13558820,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/MadinaArabicBooks",
+      "licence": "freely distributed for study",
+      "notes": "English key, book 2.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/madinah-key-book3-en.pdf",
+      "sha256": "b5e41ea27fd5c918ea7ea239332102f3e92e6ee45f614f10c09795e3c965c740",
+      "bytes": 35422763,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/MadinaArabicBooks",
+      "licence": "freely distributed for study",
+      "notes": "English key, book 3.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/wright-arabic-grammar-vol1.pdf",
+      "sha256": "0ec8f890e1ff40cf55ea01ad99473280fa6e576bff04bcea6fb659d7e0c332eb",
+      "bytes": 17156412,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/in.ernet.dli.2015.44281",
+      "licence": "Public domain (Wright, 3rd ed. 1896)",
+      "notes": "Reference grammar vol 1.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/wright-arabic-grammar-vol1.txt",
+      "sha256": "77233f558a9369882f89789aaba078752202106edec2bd5df7b22f7acad71dc6",
+      "bytes": 599024,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/in.ernet.dli.2015.44281",
+      "licence": "Public domain",
+      "notes": "OCR text. Latin is reliable; Arabic OCR is not — do not extract Arabic from this.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/wright-arabic-grammar-vol2.pdf",
+      "sha256": "280aa2388e453a370ba403d385467716037c729df60dcca713d9b28fb70e8a41",
+      "bytes": 27943861,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/in.ernet.dli.2015.31099",
+      "licence": "Public domain",
+      "notes": "Reference grammar vol 2 — syntax.",
+      "extracted": null
+    },
+    {
+      "path": "grammar/wright-arabic-grammar-vol2.txt",
+      "sha256": "c891aab7ab745d497470044a2d523eebf846c8fd66bc2658df297342107f18bf",
+      "bytes": 978652,
+      "added": "2026-08-11",
+      "source_url": "https://archive.org/details/in.ernet.dli.2015.31099",
+      "licence": "Public domain",
+      "notes": "OCR text. Same Arabic-OCR caveat.",
+      "extracted": null
+    },
+    {
+      "path": "quran/morphology-terms-ar.json",
+      "sha256": "c9028b44ea859ea23ae57aa1b945f8523203c0d733934d47cef3d729ca8a5db1",
+      "bytes": 2962,
+      "added": "2026-08-11",
+      "source_url": "https://github.com/mustafa0x/quran-morphology",
+      "licence": "GNU GPL",
+      "notes": "Arabic names for the morphology tag set.",
+      "extracted": null
+    },
+    {
+      "path": "quran/quran-morphology-README.md",
+      "sha256": "caec314d4c64cc26e27b3c45c12a33be7059a83fc3db385c43615d6a5792ba5f",
+      "bytes": 4559,
+      "added": "2026-08-11",
+      "source_url": "https://github.com/mustafa0x/quran-morphology",
+      "licence": "GNU GPL",
+      "notes": "Documents the tag format.",
+      "extracted": null
+    },
+    {
+      "path": "quran/quran-morphology.txt",
+      "sha256": "742bfac59941b2cb09736d5b7aae694af50792261fb8450cbf6afafcc340645f",
+      "bytes": 6322866,
+      "added": "2026-08-11",
+      "source_url": "https://github.com/mustafa0x/quran-morphology",
+      "licence": "GNU GPL — Quranic Arabic Corpus 0.4 (Kais Dukes, 2011); Buckwalter converted to Arabic script by mustafa0x",
+      "notes": "Root + lemma + POS for all 130,030 Quran morphemes. The root atlas spine.",
+      "extracted": null
+    },
+    {
+      "path": "quran/quran-tanzil-simple-clean.txt",
+      "sha256": "228df2a717671aeb9d2ff573002bd28d6b3f973f4bc7153554e3a81663d67610",
+      "bytes": 781176,
+      "added": "2026-08-11",
+      "source_url": "https://tanzil.net/download/",
+      "licence": "Tanzil — free for non-commercial use",
+      "notes": "No diacritics. The Level 4+ target rendering.",
+      "extracted": null
+    },
+    {
+      "path": "quran/quran-tanzil-simple-vocalised.txt",
+      "sha256": "f3268cfe7a400add8a8024fe23368d66f58cc8baa51773fe94e323625c66344b",
+      "bytes": 1338090,
+      "added": "2026-08-11",
+      "source_url": "https://tanzil.net/download/",
+      "licence": "Tanzil — free for non-commercial use",
+      "notes": "Simple orthography, vocalised.",
+      "extracted": null
+    },
+    {
+      "path": "quran/quran-tanzil-uthmani.txt",
+      "sha256": "bf4f57b968d03f4131c070b1e285da9be0e0a108a21c910e872801ca273312c8",
+      "bytes": 1370878,
+      "added": "2026-08-11",
+      "source_url": "https://tanzil.net/download/",
+      "licence": "Tanzil — free for non-commercial use, text must not be modified",
+      "notes": "Fully vocalised mushaf text. Source of truth for the harakat fade.",
+      "extracted": null
+    },
+    {
+      "path": "vocabulary/kaikki-wiktionary-arabic.jsonl",
+      "sha256": "3251f773e99075701df7013d4f76805b62be58365760360b63ee668bc2535c08",
+      "bytes": 512417397,
+      "added": "2026-08-11",
+      "source_url": "https://kaikki.org/dictionary/Arabic/",
+      "licence": "CC BY-SA 4.0 / GFDL (Wiktionary)",
+      "notes": "Every Arabic Wiktionary entry as JSONL: senses, roots, forms, IPA. Gloss source for non-Quranic vocabulary.",
+      "extracted": null
+    },
+    {
+      "path": "vocabulary/lane-quranic-roots-README.md",
+      "sha256": "ce6041516ac4e08f72472bd237d1d2f4de576a11958745f84f70f905c0e46ec5",
+      "bytes": 13435,
+      "added": "2026-08-11",
+      "source_url": "https://github.com/aliozdenisik/quran-arabic-roots-lane-lexicon",
+      "licence": "see repo",
+      "notes": "Documents field meanings and how the AI summaries were produced.",
+      "extracted": null
+    },
+    {
+      "path": "vocabulary/lane-quranic-roots.json",
+      "sha256": "7c572241cc6574a0c6852791beb520495e28e7e13db8f2cc0a8299aa8e57335e",
+      "bytes": 12046149,
+      "added": "2026-08-11",
+      "source_url": "https://github.com/aliozdenisik/quran-arabic-roots-lane-lexicon",
+      "licence": "Lane definitions are public domain (1863–93); summaries are AI-generated by the repo author",
+      "notes": "1,651 Quranic roots: verbatim Lane definitions, morphological forms with occurrence counts, Quran frequency. English summaries are UNVERIFIED.",
+      "extracted": null
+    },
+    {
+      "path": "vocabulary/lanes-lexicon-perseus-xml.zip",
+      "sha256": "823ade5fc067ed8aefafb3412df3a61590abfef68e214acdff91d790c56d5469",
+      "bytes": 12170761,
+      "added": "2026-08-11",
+      "source_url": "https://github.com/laneslexicon/lexicon_xml",
+      "licence": "Public domain (Lane, 1863–93); Perseus XML with community amendments",
+      "notes": "Complete Lane Lexicon in structured XML. Reference for Levels 5+.",
+      "extracted": null
+    },
+    {
+      "path": "vocabulary/quran-lemma-frequency-DERIVED.tsv",
+      "sha256": "eb48ec16f49d7ce3c89caeec4c6761b0d9c1e01ad152cfdb6cdd35abbeadbd50",
+      "bytes": 185732,
+      "added": "2026-08-11",
+      "source_url": "derived locally from quran-morphology.txt",
+      "licence": "inherits GNU GPL from source",
+      "notes": "GENERATED, not downloaded. Lemma frequency + cumulative coverage. Regenerate rather than edit.",
+      "extracted": null
+    }
+  ]
 }
