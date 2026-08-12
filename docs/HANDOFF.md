@@ -76,8 +76,8 @@ banned. These are different things and the distinction is load-bearing.
 
 ## Where work stopped
 
-**Phases 0, 1, the design pass and Phase 2 are built and green.** Branch
-`phase-0-1`, unmerged and **unpushed** — see the gap list.
+**Phases 0, 1, the design pass and Phase 2 are built, green and pushed.**
+Branch `phase-0-1`, unmerged — Qusai merges into `master` himself.
 
 What exists:
 
@@ -99,7 +99,7 @@ Next: **Phase 3 — library survey and the content pipeline.** Catalogue every
 source, prove extraction on a sample of each, import the full Quranic corpus,
 and add the licence allow-list check. See spec §13.
 
-Blocked on nothing buildable. **The push is blocked on Qusai** — see gap 1.
+**Nothing is blocked.** Phase 3 can start cold from this file plus the spec.
 
 ## How to run
 
