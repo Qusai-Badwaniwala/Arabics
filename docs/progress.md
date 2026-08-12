@@ -5,6 +5,32 @@ broke and how it was found, and what was tried and abandoned.
 
 ---
 
+## 2026-08-12 — The repo left this machine for the first time
+
+Ten commits, one disk, no copy anywhere — that was the state until now.
+
+The first push was rejected: Qusai's GitHub account blocks pushes that expose
+his email, and every commit carried `qusaishb@gmail.com`. He chose to keep the
+address private rather than turn the block off, so the history was rewritten
+once with `git filter-branch` to
+`184258864+Qusai-Badwaniwala@users.noreply.github.com`, and the repo's local
+`user.email` set to match.
+
+**A history rewrite is exactly the operation that quietly destroys work**, so it
+was done with a check rather than a hope: `HEAD^{tree}` was recorded before
+(`bd6533c5…`) and compared after. Identical — every file byte-for-byte the same,
+only the author lines changed. The pre-rewrite commits remain under
+`refs/original/` on this machine as the undo.
+
+Both branches are now on `github.com/Qusai-Badwaniwala/Arabics`, and CI picked
+up the push and started running the gate.
+
+*If this ever needs doing again:* it gets harder with every commit, and it only
+worked cleanly here because nothing had been pushed. Set the right email in a
+repo's first commit.
+
+---
+
 ## 2026-08-12 — Phase 2: the Day page
 
 The app stopped being two screens and became one page: today, in blocks, each

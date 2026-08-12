@@ -3,7 +3,49 @@
 Written last, read first. If you are picking this up cold, this page and
 `docs/progress.md` are the whole state. Nothing important lives only in a chat.
 
-**Last updated:** 2026-08-12, after Phase 2, on branch `phase-0-1`.
+**Last updated:** 2026-08-12, after Phase 2, on branch `phase-0-1`, pushed.
+
+---
+
+## Read this before you read anything else
+
+This is not a product. It is **one person's instrument, built for one person**,
+and every technical decision here follows from that.
+
+**Qusai finds Arabic beautiful.** That is not a footnote on the motivation, it
+*is* the motivation. He is not learning Arabic to put it on a CV or to order
+coffee in Cairo. He wants the Quran and the classical texts — to read them
+without a crutch, to hear them, and eventually to **think** in the language
+rather than translate into it. That is why the vocabulary is Quran-weighted
+instead of "practical", why there is no dialect, and why a feature that would be
+sensible in a language app can still be wrong here.
+
+**He will open this every day, for years.** That is the whole reason it has to
+feel hand-made. "Premium", "artistic", "a wow element", "not AI slop" are his
+words, and they are requirements, not taste. Something you will touch every
+morning for three years is allowed to be beautiful; a thing that looks
+generated will quietly stop being opened. If you are about to ship a screen that
+would embarrass a designer, you have misunderstood the brief.
+
+**Nothing here may shame him.** No guilt mechanics, no punishing streak, no red.
+He gives it 45–60 minutes a day and holds that on bad days. The app's job is to
+make a bad day survivable, not to grade him on it. The streak is information;
+the checkboxes are his to tick; the quiz penalises nothing. Keep it that way.
+
+**He wants it to be true.** He asked for the method to rest on actual
+second-language-acquisition research rather than plausible-sounding design, and
+that is why spec §3 exists with sources. The same standard applies to the app
+itself: a number that was not measured is a lie, and a screen that claims
+something it cannot do is a defect, not a placeholder. When in doubt, measure it
+and say what you measured.
+
+**He finds the defects that matter by using the thing.** Nearly every real bug
+in this project was found by opening the app and looking at it, not by the
+tests — a quiz that highlighted the wrong answer, a word that slid up the screen,
+harakat clipped by a line-height. Get him something runnable, then go and look
+at it yourself before you say it works.
+
+He also edits files in his own editor between turns. Read before you overwrite.
 
 ---
 
@@ -128,20 +170,31 @@ One chain, `npm run gate`:
 - `playwright test` — **10 tests across 2 devices (20 runs)**, against the built
   app on `vite preview`, phone and desktop.
 
-CI runs the identical chain: [`.github/workflows/gate.yml`](../.github/workflows/gate.yml).
-It is inert until a remote exists.
+CI runs the identical chain on every push:
+[`.github/workflows/gate.yml`](../.github/workflows/gate.yml) →
+<https://github.com/Qusai-Badwaniwala/Arabics/actions>. It was still on its
+first run when this was written — **check it is green before trusting it**, and
+if Playwright behaves differently on Linux, fix the test rather than the gate.
 
-## How to ship and roll back
+## Git, and how to ship
 
-**Nothing is deployed and there is no remote yet.** This is the largest
-operational gap: the repo exists on exactly one disk, so a drive failure loses
-the project.
+**Remote:** `https://github.com/Qusai-Badwaniwala/Arabics.git` (public).
+`master` is the deploy branch — **never commit to it**; work on a branch and let
+Qusai merge. `phase-0-1` holds everything through Phase 2.
 
-The plan, decided 2026-08-12: **public GitHub repo → CI runs the gate → GitHub
-Pages.** Free permanently, and updating the app is a push. Public is safe
-because of the licence rule in spec §7 — no in-copyright text is ever committed,
-so there is nothing to hide. Qusai creates the repo and supplies the URL;
-nothing is pushed without him saying so.
+**Commits use `184258864+Qusai-Badwaniwala@users.noreply.github.com`**, set in
+this repo's local git config on 2026-08-12. His account blocks pushes that
+expose his real address, so history was rewritten once to strip it — verified by
+checking the HEAD tree hash was byte-identical before and after. **Do not commit
+with any other email**; the push will be rejected, and fixing it after the fact
+means another rewrite. The pre-rewrite commits are still on this machine under
+`refs/original/` as the undo; they are local only and can be deleted once you
+are confident.
+
+**Deploy, when Phase 9 arrives:** GitHub Pages from `master`, gated by CI. Free
+permanently, and updating the app is a push. Public is safe because of the
+licence rule in spec §7 — no in-copyright text is ever committed, so there is
+nothing to hide.
 
 Rollback is redeploying the previous build, and **service-worker cache must be
 verified as actually updated** before any fix is called delivered. The service
@@ -216,17 +269,9 @@ could notice. Nothing mechanical is ever hand-copied.
 
 ## Known gaps, stated deliberately
 
-1. **Nothing is pushed, so there is still no off-machine copy.** The remote
-   exists — `https://github.com/Qusai-Badwaniwala/Arabics.git` — but GitHub
-   rejects the push: the account has *"Block command line pushes that expose my
-   email"* on, and every commit here carries `qusaishb@gmail.com`.
-   Two ways out, both needing Qusai:
-   **(a)** turn that setting off at <https://github.com/settings/emails>, which
-   publishes the address in the commit history forever; or **(b)** keep it
-   private — rewrite the local commits to
-   `184258864+Qusai-Badwaniwala@users.noreply.github.com` and set
-   `git config user.email` to the same. Nothing has been pushed, so (b) is safe
-   today and gets harder later. It is a history rewrite, so it needs his say-so.
+1. **Nothing is deployed yet.** The code is safe on GitHub but there is no site.
+   Phase 9 owns it: GitHub Pages, CI-gated, free. Until then the only way to run
+   it is locally.
 2. **The 300 glosses are mine, not a scholar's.** Every lexeme carries
    `unverified: true`. Read `content/lexeme-review.tsv` and correct anything
    wrong — either in the app (the correction is stored per-word and exported) or
