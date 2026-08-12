@@ -218,7 +218,30 @@ Levels 1–2 where verse coverage is thinnest.
   at the door.
 - **Unvocalised text begins at Level 4**, on a schedule, not "eventually."
 
-### 4.6 Corpus weighting
+### 4.6 Teaching order — meaningful words first
+
+**Decided 2026-08-12, after Qusai used the app.** Cards are ordered by
+frequency *among words that carry a root*; particles are deferred.
+
+Strict frequency order opens with و ال ل مِن ف — single letters, no roots,
+barely a meaning each. It is correct for coverage and wrong for a human being on
+day one, which is exactly what happened: he opened the app, was shown a bare و,
+and could not tell what the screen was for. Function words are also acquired
+through **use in sentences**, not through paired-associate drill against an
+English gloss, so a card was the wrong instrument for them regardless.
+
+Day one becomes اللَّه · ما · قالَ · الَّذِي · كانَ · رَبّ · آمَنَ · يَوْم — with
+إِلٰه arriving beside اللَّه because they share أله.
+
+Particles move into the **lesson block**, taught inside a sentence where they do
+their job. Until Phase 4 exists to hold them they stay as cards at the *end* of
+the Level 1 set, because a word taught nowhere is worse than a word taught
+awkwardly.
+
+**This does not change the coverage curve.** Coverage counts words known, not
+where they were learned; the order changes, the destination does not.
+
+### 4.7 Corpus weighting
 
 Words 1–500 are the shared core (particles, pronouns, كان/قال/جعل) — identical
 across Quranic and modern frequency lists, so no tradeoff exists there.

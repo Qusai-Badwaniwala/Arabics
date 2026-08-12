@@ -7,6 +7,66 @@ Written last, read first. If you are picking this up cold, this page and
 
 ---
 
+## If you have just been told to begin
+
+Read the next section ("Read this before you read anything else") first — it is
+short and it is the part that makes the rest make sense. Then do these, in this
+order. They are already decided; none of them needs asking again.
+
+**1. The design identity pass. This is the top priority and it is a re-do.**
+Qusai asked, explicitly and more than once, for the whole app — UI, UX, theme,
+palette, frontend — to be state of the art. As of 2026-08-12 it is not, and he
+said so. What shipped was a *craft* pass (size-specific tracking, 0.5px
+hairlines, damped motion, press-on-pointer-down) — all real, all invisible
+unless you go looking. **The day page currently looks like a todo app**: three
+grey-bordered rows with checkboxes on a flat beige field. Named honestly, the
+failures are:
+
+- No signature on the screen he actually opens every morning. The root chip —
+  the one element that could belong to no other app — appears on cards only.
+- Parchment is a flat colour, not a material. No grain, no depth, no page.
+- No ornament from the subject's own world: no mushaf illumination, no ayah
+  rosette, no geometry. All of it was deferred under "restraint", and the
+  deferring is what produced plainness.
+- No moment of delight anywhere — least of all at *Conclude the day*, which is
+  the emotional peak of the whole ritual and currently does nothing.
+- Type is well set but not expressive. No display moment on the day page.
+
+The brief: **the day page as an illuminated page, not a checklist.** Keep the
+agreed direction — editorial luxury crossed with Apple's physics — but execute
+it far harder. Use the design skills (`apple-design`, `impeccable`,
+`emil-design-eng`, `frontend-design`, `animate`); screenshot every state in both
+themes and *look*, repeatedly. Do not start this at the end of a long session;
+it needs the context budget to iterate.
+
+**2. The first cards make no sense to a human, and two things cause it.**
+
+- *No first-run explanation exists at all.* He was shown a bare glyph, told to
+  press space, then asked to rate his memory on a four-point scale invented by
+  flashcard software he has never used. "First run" was named as a mode to
+  design and then never designed. Build it.
+- *Grade labels assume Anki literacy.* Decided: rename to **Forgot · Hard ·
+  Knew it · Easy**, keeping the interval preview under each.
+
+**3. Teaching order — decided by Qusai on 2026-08-12.** Cards now **lead with
+real, root-bearing words** (اللَّه، رَبّ، قالَ، كِتاب، يَوْم) and particles move
+back. Rationale: strict frequency order opens with و ال ل مِن ف — single letters
+with no roots and barely a meaning, which is right for coverage and wrong for a
+human being on day one. Function words are also acquired through use in
+sentences rather than paired-associate drill.
+Implementation note, and it matters: **particles must not simply vanish**, or
+they are taught nowhere until the lesson block arrives in Phase 4. Defer them to
+the end of the Level 1 set for now, and move them into lessons when Phase 4
+gives them somewhere to go. Qusai was told this and can still overrule it.
+
+**4. The app never shows him where he is.** No level, no CEFR band, no "12 of
+300". He had to ask how long a level takes. The numbers are in "Measured facts"
+below — put them on the day page rather than making him ask again.
+
+**Then** carry on with Phase 3 (spec §13).
+
+---
+
 ## Read this before you read anything else
 
 This is not a product. It is **one person's instrument, built for one person**,
@@ -95,11 +155,12 @@ What exists:
   gloss correction.
 - The gate, and CI wired to it.
 
-Next: **Phase 3 — library survey and the content pipeline.** Catalogue every
-source, prove extraction on a sample of each, import the full Quranic corpus,
-and add the licence allow-list check. See spec §13.
+**Next is not Phase 3.** It is the four items at the top of this file — the
+design identity pass, first-run onboarding, the teaching-order change and
+showing him his level — all raised by Qusai on 2026-08-12 after using the app.
+Phase 3 (library survey and content pipeline, spec §13) follows them.
 
-**Nothing is blocked.** Phase 3 can start cold from this file plus the spec.
+**Nothing is blocked.** All four are decided; start cold from this file.
 
 ## How to run
 
@@ -239,6 +300,33 @@ as readable only when every lemma-bearing morpheme in it is known.
 - Level 4's 2,000-word target hits the graded reader's own 95% threshold, so
   **the Quran itself becomes valid reader input at Level 4.** This is the pivot
   the whole schedule turns on.
+
+### How long a level takes
+
+Asked by Qusai on 2026-08-12; keep the answer here so nobody re-derives it.
+At 10 new words a day, the intake arithmetic is exact:
+
+| Level | CEFR | Words | Days of intake | ≈ |
+|---|---|---|---|---|
+| 1 | A1 | 300 | 30 | 1 month |
+| 2 | A2 | 700 | 70 | 2½ months |
+| 3 | A2+ | 1,200 | 120 | 4 months |
+| 4 | B1 | 2,000 | 200 | 6½ months |
+| 5 | B1+ | 3,000 | 300 | 10 months |
+| 6 | B2 | 4,000 | 400 | 13 months |
+| 7 | strong B2 | 4,776 | 478 | **~16 months** |
+
+Three caveats, all of which must be said whenever this table is quoted:
+
+1. That is the day the **last new word is introduced**, not the day he knows it.
+   Mastery lags intake, and a level switches on its **exit test**, from his own
+   data — never on a calendar.
+2. A missed week pauses intake while the backlog clears, so the calendar
+   stretches. By design; that is the throttle working, not a failure.
+3. Sixteen months at 50 min/day is ~400 hours, against FSI's ~2,200 for Arabic.
+   So the **vocabulary** finishes in about sixteen months; the **fluency** keeps
+   going, and the difference is made up of reading volume. This is the strongest
+   single argument for the reader mattering more than the card count.
 
 **Two different coverage numbers exist and they are not interchangeable.** The
 figures above are *word*-level. `quran-lemma-frequency-DERIVED.tsv` carries a

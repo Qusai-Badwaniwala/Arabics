@@ -5,6 +5,71 @@ broke and how it was found, and what was tried and abandoned.
 
 ---
 
+## 2026-08-12 — Qusai opened it, and three things were wrong
+
+The most useful hour of the project so far, and none of it came from a test.
+
+### The design is not what was asked for, and that is on me
+
+He asked — explicitly, repeatedly — for the whole app to be state of the art:
+UI, UX, theme, palette, frontend. He looked at Phase 2 and said he does not see
+it. He is right.
+
+What was delivered under the name "design pass" was a **craft** pass: tracking
+per size, 0.5px hairlines, critically damped motion, feedback on pointer-down.
+All real, all invisible unless you go looking for it. He asked for a *wow*, and
+**the day page looks like a todo app** — three grey-bordered rows with
+checkboxes on a flat beige field. Good letter-spacing does not rescue that.
+
+The failure has a name: optimising for *nothing is wrong* instead of *this is
+remarkable*. Every ornament from the subject's own world — mushaf illumination,
+the ayah rosette, geometry — was deferred under "restraint", and the deferring
+is what produced the plainness. Restraint without a signature to restrain is
+just absence.
+
+The brief is written at the top of HANDOFF. It is the next task, and it is
+deliberately **not** being started at the end of a long session, because it
+needs repeated screenshot-and-look cycles and doing it on fumes is how it came
+out mediocre the first time.
+
+### The first card is incomprehensible, for two separate reasons
+
+He opened the review, was shown a bare و, told to press space, and then asked to
+rate his memory on a four-point scale invented by flashcard software he has
+never used. Two defects, not one:
+
+- **No first-run explanation exists.** "First run, empty state" was named as a
+  mode that needed designing, and then never designed. A mode you can name and
+  still not build is worth noticing.
+- **The grade labels assume Anki literacy.** Renaming to Forgot · Hard · Knew
+  it · Easy.
+
+### The curriculum opened with its worst possible face
+
+The first ten cards were و ال ل مِن ف — the five commonest items in the Quran and
+five of the worst imaginable introductions: single letters, no roots, barely a
+meaning. Frequency order is right for coverage and wrong for a person on day
+one. And function words are acquired through use in sentences, not by drilling a
+glyph against a gloss, so the card was the wrong instrument for them anyway.
+
+Qusai chose: lead with real, root-bearing words. Spec §4.6 records it.
+
+One thing was flagged back to him rather than done silently: removing particles
+from cards outright would leave them **taught nowhere** until the lesson block
+lands in Phase 4. They are deferred to the end of Level 1's set instead, and
+move into lessons when there is a lesson to move them into.
+
+### He had to ask how long a level takes
+
+The app never tells him where he is — no level, no CEFR band, no "12 of 300".
+The arithmetic now lives in HANDOFF under *How long a level takes*, along with
+the three caveats that must travel with it: intake is not mastery, a missed week
+stretches the calendar by design, and sixteen months of vocabulary is about 400
+hours against FSI's 2,200 — the difference being reading volume, which is the
+strongest argument in the project for the reader mattering more than the cards.
+
+---
+
 ## 2026-08-12 — The repo left this machine for the first time
 
 Ten commits, one disk, no copy anywhere — that was the state until now.
