@@ -394,6 +394,133 @@ button {
   }
 }
 
+/* ---- the day page ------------------------------------------------------ */
+
+/* The app's name, small, in the corner of its own day. Needs real leading —
+   the kasra under the alif and the shadda over the qaf both need somewhere to
+   go, and `line-height: 1` clips them. */
+.day-mark {
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Concluding the day sits at the end of the scroll — which on a short day is
+   the bottom of the screen, and on a full one is below the last block. */
+.day-end {
+  margin-block-start: auto;
+  padding-block-start: var(--space-5);
+}
+
+.bar-end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* A block is a checkbox and a door. Two sibling buttons, never nested — the
+   tick must be pressable without opening the block. */
+.block {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+
+.tick {
+  flex: none;
+  align-self: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  border: var(--hairline) solid var(--ink-muted);
+  border-radius: var(--radius);
+  font-family: var(--font-chrome);
+  font-size: 0.875rem;
+  line-height: 1;
+  color: var(--accent);
+  transition: transform var(--dur-press) var(--ease-press);
+}
+
+.tick:active {
+  transform: scale(0.9);
+}
+
+.tick[aria-pressed='true'] {
+  border-color: var(--accent);
+}
+
+.block-open {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--tap);
+  padding-block: var(--space-2);
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Nothing to open: it still reads as a row, it just does not invite a tap. */
+.block-idle .gloss {
+  color: var(--ink-muted);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.row-value {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ---- quiz -------------------------------------------------------------- */
+
+.option {
+  width: 100%;
+  justify-content: flex-start;
+  font-family: var(--font-read);
+  font-size: var(--step-body);
+  letter-spacing: var(--track-body);
+  text-align: start;
+}
+
+/* Right and wrong are told apart by weight and inversion, not by red and green
+   — the palette has two colours and neither of them means "correct".
+   The right answer is inverted so it is unmissable; the wrong one recedes.
+   The first version outlined the *wrong* answer in the accent, which drew the
+   eye straight to it and read as if it had been marked correct. */
+.option-right {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ground);
+  font-weight: 700;
+}
+
+.option-wrong {
+  color: var(--ink-muted);
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.sparkline {
+  align-self: center;
+}
+
+.sparkline polyline {
+  stroke: var(--accent);
+}
+
 /* ---- odds and ends ----------------------------------------------------- */
 
 .field {

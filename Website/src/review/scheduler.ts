@@ -6,7 +6,13 @@ import {
   type Card,
   type Grade,
 } from 'ts-fsrs';
-import { byRank, type Lexeme } from '../content/content.ts';
+import {
+  byRank,
+  lexemeById,
+  lexemesByRoot,
+  type Lexeme,
+} from '../content/content.ts';
+import { sameDay } from '../lib/day.ts';
 import type { LearnerState } from '../state/migrate.ts';
 
 /** Default FSRS parameters. Tuning them needs a review history to optimise
@@ -38,16 +44,6 @@ export interface Queued {
   isNew: boolean;
 }
 
-function sameDay(a: Date, b: Date): boolean {
-  // Local midnight is the day boundary. ponytail: no configurable rollover —
-  // add one if studying past midnight starts costing a day's count.
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
-}
-
 /** First meetings so far today. Derived from the log, so it cannot drift from
  *  what actually happened. */
 export function introducedToday(state: LearnerState, now: Date): number {
@@ -70,16 +66,8 @@ export function nextDue(state: LearnerState, now: Date): Date | null {
   return soonest;
 }
 
-export function newRemaining(state: LearnerState, now: Date): number {
-  return Math.max(0, state.newPerDay - introducedToday(state, now));
-}
-
-/**
- * What is actually due: overdue cards first, then today's new words in
- * frequency order. Recomputed from state on every render, so a card graded
- * "Again" rejoins the queue by itself.
- */
-export function buildQueue(state: LearnerState, now: Date): Queued[] {
+/** Cards whose time has come. The Review block's whole queue. */
+export function dueCards(state: LearnerState, now: Date): Queued[] {
   const due: Queued[] = [];
   for (const lexeme of byRank) {
     const card = state.cards[lexeme.id];
@@ -87,17 +75,71 @@ export function buildQueue(state: LearnerState, now: Date): Queued[] {
       due.push({ lexeme, card, isNew: false });
     }
   }
-  due.sort((a, b) => a.card.due.getTime() - b.card.due.getTime());
+  return due.sort((a, b) => a.card.due.getTime() - b.card.due.getTime());
+}
 
-  const fresh: Queued[] = [];
-  let budget = newRemaining(state, now);
+/**
+ * The backlog throttle (design spec §10).
+ *
+ * New words stop arriving while the review debt is above the limit, and resume
+ * by themselves once it is cleared. This exists because compounding review debt
+ * after a missed week is the most common way self-taught learners quit — the
+ * app must not keep digging while the learner is trying to climb out.
+ */
+export function isThrottled(state: LearnerState, now: Date): boolean {
+  return dueCards(state, now).length >= state.backlogLimit;
+}
+
+export function newRemaining(state: LearnerState, now: Date): number {
+  if (isThrottled(state, now)) return 0;
+  return Math.max(0, state.newPerDay - introducedToday(state, now));
+}
+
+/**
+ * The day's new words, as root families rather than a flat frequency list.
+ *
+ * Walking by frequency alone hands you ten unrelated facts. Taking each word
+ * with the siblings that share its root means you meet مَكْتَب as *place-of* a
+ * root you now own, which is the whole efficiency argument of the design
+ * (spec §4.3). Words with no root — particles — simply arrive alone.
+ */
+export function newWordsToday(state: LearnerState, now: Date): Lexeme[] {
+  const budget = newRemaining(state, now);
+  const picked: Lexeme[] = [];
+  const taken = new Set<string>();
+
   for (const lexeme of byRank) {
-    if (budget === 0) break;
-    if (state.cards[lexeme.id]) continue;
-    fresh.push({ lexeme, card: createEmptyCard(now), isNew: true });
-    budget--;
+    if (picked.length >= budget) break;
+    if (state.cards[lexeme.id] || taken.has(lexeme.id)) continue;
+    picked.push(lexeme);
+    taken.add(lexeme.id);
+
+    for (const siblingId of lexeme.root
+      ? (lexemesByRoot.get(lexeme.root) ?? [])
+      : []) {
+      if (picked.length >= budget) break;
+      if (taken.has(siblingId) || state.cards[siblingId]) continue;
+      const sibling = lexemeById.get(siblingId);
+      if (!sibling) continue;
+      picked.push(sibling);
+      taken.add(siblingId);
+    }
   }
-  return [...due, ...fresh];
+  return picked;
+}
+
+/**
+ * What is actually due: overdue cards first, then today's new words.
+ * Recomputed from state on every render, so a card graded "Again" rejoins the
+ * queue by itself.
+ */
+export function buildQueue(state: LearnerState, now: Date): Queued[] {
+  const fresh = newWordsToday(state, now).map((lexeme) => ({
+    lexeme,
+    card: createEmptyCard(now),
+    isNew: true,
+  }));
+  return [...dueCards(state, now), ...fresh];
 }
 
 /**

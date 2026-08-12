@@ -513,7 +513,7 @@ study** reaches once that phase's capability exists — not a property of the co
 | 0 ✅ | Repo, Vite+React+TS+PWA, token file, both themes, Amiri, hex-literal test, the gate | Install it; see one Arabic word rendered properly | — | done |
 | 1 ✅ | 300 lexemes + 172 roots, FSRS review, TTS, persistence, export/import, gloss correction | **Study daily.** First usable build | — | done |
 | 1.5 ✅ | Design pass: editorial precision, Apple physics | Feel that it was made on purpose | — | done |
-| 2 | **The Day page** — single-scroll blocks, checkboxes, day conclusion, settings screen, streak, backlog throttle, 10/day root family, quiz | Have the real ritual, with feedback | — | 2–3 |
+| 2 ✅ | **The Day page** — single-scroll blocks, checkboxes, day conclusion, settings screen, streak, backlog throttle, 10/day root family, quiz | Have the real ritual, with feedback | — | done |
 | 3 | **Library survey + content pipeline** — catalogue every source, prove extraction, full corpus import, 2,000+ tagged lexemes, licence allow-list check | Feed it his own books | — | 2–3 |
 | 4 | **Lessons** — grammar taught in-app, L1–L4 units as the day's first block | Learn grammar without a separate textbook | **A1** | 3–4 |
 | 5 | **The reader** — 95% and 98% modes over the Quran, tap-to-gloss, harakat fade | Read real Quran at exactly his level, daily | **A2** | 3–4 |

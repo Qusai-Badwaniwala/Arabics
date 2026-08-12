@@ -33,5 +33,9 @@ export const roots = rootsJson as Root[];
 
 export const lexemeById = new Map(lexemes.map((l) => [l.id, l]));
 
+/** root -> the lexeme ids that share it. The new-word block introduces a word
+ *  together with its family rather than as an isolated fact. */
+export const lexemesByRoot = new Map(roots.map((r) => [r.root, r.lexemes]));
+
 /** Frequency order — the order the curriculum introduces words in. */
 export const byRank = [...lexemes].sort((a, b) => a.rank - b.rank);

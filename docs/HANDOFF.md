@@ -3,7 +3,7 @@
 Written last, read first. If you are picking this up cold, this page and
 `docs/progress.md` are the whole state. Nothing important lives only in a chat.
 
-**Last updated:** 2026-08-12, after the vision review, on branch `phase-0-1`.
+**Last updated:** 2026-08-12, after Phase 2, on branch `phase-0-1`.
 
 ---
 
@@ -34,25 +34,30 @@ banned. These are different things and the distinction is load-bearing.
 
 ## Where work stopped
 
-**Phases 0, 1 and the design pass are built and green.** The app runs, installs,
-works offline, and can be studied from daily. Branch `phase-0-1`, unmerged.
+**Phases 0, 1, the design pass and Phase 2 are built and green.** Branch
+`phase-0-1`, unmerged and **unpushed** — see the gap list.
 
 What exists:
 
 - Vite + React + TS + PWA shell, two themes on one token file, Amiri bundled.
 - 300 lexemes and 172 roots, derived from the Quranic Arabic Corpus.
-- FSRS review session with interval previews, keyboard-only operation, TTS.
-- Persistence in IndexedDB, JSON export **and import**, in-app gloss correction.
-- A design pass: size-specific type, real hairlines, critically damped motion,
-  tap-anywhere-to-reveal.
+- **The Day page**: one scrolling page of today's blocks — Review, New words,
+  Quiz — each with a checkbox, and a final one that concludes the day. Blocks
+  open into a focused mode and return. Settings is the only other screen.
+- FSRS review with interval previews, keyboard-only operation, TTS.
+- **New words arrive as root families**, not a flat frequency list.
+- **Backlog throttle**: new words pause above 150 due cards and resume alone.
+- **MCQ quiz every second day**, weakest words first, with a score sparkline.
+- **Streak** derived from concluded days — no penalty attached anywhere.
+- Persistence in IndexedDB at schema 2, JSON export **and import**, in-app
+  gloss correction.
 - The gate, and CI wired to it.
 
-Next: **Phase 2 — the Day page.** The whole app becomes one scrolling page of
-today's blocks with checkboxes, plus a settings screen; analytics is the only
-other screen. See spec §6 and §13.
+Next: **Phase 3 — library survey and the content pipeline.** Catalogue every
+source, prove extraction on a sample of each, import the full Quranic corpus,
+and add the licence allow-list check. See spec §13.
 
-Blocked on nothing. Two things need Qusai: a **git remote** (see below) and a
-decision only he can make about how many minutes a day he will actually give it.
+Blocked on nothing buildable. **The push is blocked on Qusai** — see gap 1.
 
 ## How to run
 
@@ -115,12 +120,12 @@ One chain, `npm run gate`:
 - `oxlint --deny-warnings` — a warning fails the gate, or it is not a gate.
 - `tsc --noEmit` — strict, plus `noUncheckedIndexedAccess` and
   `exactOptionalPropertyTypes`.
-- `vitest run` — **45 tests**, measured 2026-08-11. Zero collected test files is
+- `vitest run` — **68 tests**, measured 2026-08-12. Zero collected test files is
   an error, not a pass.
 - `scripts/manifest.test.mjs`, then `build-content.mjs --check`, which fails if
   the committed content JSON is stale relative to its sources.
 - `vite build`.
-- `playwright test` — **8 tests across 2 devices (16 runs)**, against the built
+- `playwright test` — **10 tests across 2 devices (20 runs)**, against the built
   app on `vite preview`, phone and desktop.
 
 CI runs the identical chain: [`.github/workflows/gate.yml`](../.github/workflows/gate.yml).
@@ -211,8 +216,17 @@ could notice. Nothing mechanical is ever hand-copied.
 
 ## Known gaps, stated deliberately
 
-1. **No git remote, so no off-machine copy of anything.** Highest priority.
-   Everything — code, docs, hand-authored glosses — exists on one disk.
+1. **Nothing is pushed, so there is still no off-machine copy.** The remote
+   exists — `https://github.com/Qusai-Badwaniwala/Arabics.git` — but GitHub
+   rejects the push: the account has *"Block command line pushes that expose my
+   email"* on, and every commit here carries `qusaishb@gmail.com`.
+   Two ways out, both needing Qusai:
+   **(a)** turn that setting off at <https://github.com/settings/emails>, which
+   publishes the address in the commit history forever; or **(b)** keep it
+   private — rewrite the local commits to
+   `184258864+Qusai-Badwaniwala@users.noreply.github.com` and set
+   `git config user.email` to the same. Nothing has been pushed, so (b) is safe
+   today and gets harder later. It is a history rewrite, so it needs his say-so.
 2. **The 300 glosses are mine, not a scholar's.** Every lexeme carries
    `unverified: true`. Read `content/lexeme-review.tsv` and correct anything
    wrong — either in the app (the correction is stored per-word and exported) or
@@ -237,9 +251,9 @@ could notice. Nothing mechanical is ever hand-copied.
 8. **No feedback on pronunciation, permanently, by choice.** No microphone means
    no way to catch a sound being drilled wrong for months. Accepted 2026-08-12;
    listening volume is the substitute.
-9. **The app is still two screens, not the Day page.** Phase 2 owns that, along
-   with the streak, backlog throttle, quiz and settings. Today the daily limit is
-   a fixed 10 with no throttle, so a fortnight away produces a wall of due cards.
+9. **The day has three blocks, not six.** Lesson, Read and Listen arrive in
+    Phases 4, 5 and 7. They are absent rather than greyed out on purpose: a
+    block that cannot do its job should not be on the page claiming it can.
 10. **The Lane's-roots dataset contains AI-generated English summaries.** The
     verbatim Lane definitions are trustworthy; the `summary_en` field is not.
 11. **Arabic OCR anywhere in `content-inbox/` is unreliable.** Applies to

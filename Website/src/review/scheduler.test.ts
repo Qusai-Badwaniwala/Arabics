@@ -5,10 +5,13 @@ import { freshState, type LearnerState } from '../state/migrate.ts';
 import {
   applyGrade,
   buildQueue,
+  dueCards,
   dueCount,
   formatInterval,
   introducedToday,
+  isThrottled,
   learnAhead,
+  newWordsToday,
   nextDue,
   previewIntervals,
 } from './scheduler.ts';
@@ -39,12 +42,34 @@ test('a first session offers exactly the daily new-word budget', () => {
   expect(queue.every((q) => q.isNew)).toBe(true);
 });
 
-test('new words arrive in Quran frequency order', () => {
-  const queue = buildQueue(freshState(start), start);
-  expect(queue.map((q) => q.lexeme.rank)).toEqual([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-  ]);
-  expect(queue[0]?.lexeme.id).toBe(byRank[0]?.id);
+test('new words follow frequency, but a root brings its family with it', () => {
+  const words = newWordsToday(freshState(start), start);
+  expect(words[0]?.id).toBe(byRank[0]?.id);
+
+  // اللَّه is rank 6 and إِلٰه is rank 82; they share the root أله, so the
+  // second arrives beside the first instead of seventy places later. Meeting a
+  // word as a member of a family it already owns is the whole design (spec
+  // §4.3) — a flat frequency walk hands you ten unrelated facts.
+  const ranks = words.map((w) => w.rank);
+  expect(ranks).toContain(82);
+  expect(ranks.indexOf(82)).toBe(ranks.indexOf(6) + 1);
+
+  // Frequency still governs: nothing rare jumps the queue on its own.
+  const unrooted = words.filter((w) => w.root === null).map((w) => w.rank);
+  expect(unrooted).toEqual([...unrooted].sort((a, b) => a - b));
+});
+
+test('every word in a day comes from a root already being introduced', () => {
+  const words = newWordsToday(freshState(start), start);
+  const seen = new Set<string>();
+  for (const w of words) {
+    if (w.root) seen.add(w.root);
+  }
+  // No word is pulled in for a root that is not itself part of today's intake.
+  for (const w of words) {
+    if (w.root) expect(seen.has(w.root)).toBe(true);
+  }
+  expect(words).toHaveLength(freshState(start).newPerDay);
 });
 
 test("the day's budget is spent once, not once per visit", () => {
@@ -122,6 +147,29 @@ test('a forgotten card returns sooner than a remembered one', () => {
     start,
   ).cards[head.lexeme.id];
   expect(again?.due.getTime()).toBeLessThan(easy?.due.getTime() ?? 0);
+});
+
+test('new words stop arriving while the review debt is above the limit', () => {
+  // Build a state with more due cards than the throttle allows, by studying
+  // many days and then walking far enough forward that everything is due.
+  let state = freshState(start);
+  let day = start;
+  for (let i = 0; i < 20; i++) {
+    state = study(state, 40, Rating.Easy, day);
+    day = new Date(day.getTime() + 24 * 60 * 60_000);
+  }
+  const later = new Date(start.getTime() + 400 * 24 * 60 * 60_000);
+  const due = dueCards(state, later).length;
+  expect(due).toBeGreaterThan(0);
+
+  const throttled = { ...state, backlogLimit: Math.max(1, due - 1) };
+  expect(isThrottled(throttled, later)).toBe(true);
+  expect(newWordsToday(throttled, later)).toHaveLength(0);
+
+  // And it lets go by itself once the backlog is under the limit again.
+  const clear = { ...state, backlogLimit: due + 1 };
+  expect(isThrottled(clear, later)).toBe(false);
+  expect(newWordsToday(clear, later).length).toBeGreaterThan(0);
 });
 
 test('intervals read the way a human says them', () => {

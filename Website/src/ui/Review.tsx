@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react';
-import type { Grade } from 'ts-fsrs';
+import { createEmptyCard, type Grade } from 'ts-fsrs';
 import type { LearnerState } from '../state/migrate.ts';
+import { setDone } from '../state/days.ts';
 import { canSpeak, speak } from '../lib/tts.ts';
 import {
   applyGrade,
-  buildQueue,
+  dueCards,
   GRADE_LABELS,
   GRADES,
   learnAhead,
+  newWordsToday,
   previewIntervals,
-  reviewedToday,
+  type Queued,
 } from '../review/scheduler.ts';
 
 interface Props {
   state: LearnerState;
   onUpdate: (state: LearnerState) => void;
+  /** `due` drills what is scheduled; `new` introduces today's root families.
+   *  Two blocks on the day page, one screen — they differ only in the queue. */
+  mode: 'due' | 'new';
 }
 
-export function Review({ state, onUpdate }: Props) {
+export function Review({ state, onUpdate, mode }: Props) {
   const [revealed, setRevealed] = useState(false);
   const [draft, setDraft] = useState<string | null>(null);
   const [voiceNote, setVoiceNote] = useState<string | null>(null);
@@ -25,8 +30,17 @@ export function Review({ state, onUpdate }: Props) {
   // Recomputed every render rather than frozen at session start, so a card
   // graded "Again" rejoins the queue without any session bookkeeping.
   const now = new Date();
-  const due = buildQueue(state, now);
-  const queue = due.length > 0 ? due : learnAhead(state, now);
+  const queue: Queued[] =
+    mode === 'new'
+      ? newWordsToday(state, now).map((lexeme) => ({
+          lexeme,
+          card: createEmptyCard(now),
+          isNew: true,
+        }))
+      : (() => {
+          const due = dueCards(state, now);
+          return due.length > 0 ? due : learnAhead(state, now);
+        })();
   const current = queue[0];
   const gloss = current
     ? (state.glossEdits[current.lexeme.id] ?? current.lexeme.gloss)
@@ -34,8 +48,23 @@ export function Review({ state, onUpdate }: Props) {
 
   function grade(rating: Grade) {
     if (!current) return;
+    const graded = applyGrade(
+      state,
+      current.lexeme.id,
+      current.card,
+      rating,
+      new Date(),
+    );
+    // The last card of a block ticks its own checkbox. A block that finished
+    // its work and still shows unticked is the app lying about the day.
+    const remaining =
+      mode === 'new'
+        ? newWordsToday(graded, now).length
+        : dueCards(graded, now).length;
     onUpdate(
-      applyGrade(state, current.lexeme.id, current.card, rating, new Date()),
+      remaining === 0
+        ? setDone(graded, now, mode === 'new' ? 'new' : 'review', true)
+        : graded,
     );
     setRevealed(false);
     setDraft(null);
@@ -68,16 +97,18 @@ export function Review({ state, onUpdate }: Props) {
     return (
       <>
         <div className="bar">
-          <a className="btn btn-quiet" href="#home">
-            Home
+          <a className="btn btn-quiet" href="#day">
+            Done
           </a>
         </div>
         <div className="grow">
           <div className="panel stack center">
-            <p className="gloss">Done for today.</p>
-            <p className="data">
-              {reviewedToday(state, now)} reviewed. Ten new words tomorrow.
+            <p className="gloss">
+              {mode === 'new' ? 'All met.' : 'Nothing left to review.'}
             </p>
+            <a className="btn btn-primary" href="#day">
+              Back to today
+            </a>
           </div>
         </div>
       </>
@@ -90,8 +121,8 @@ export function Review({ state, onUpdate }: Props) {
   return (
     <>
       <div className="bar">
-        <a className="btn btn-quiet" href="#home">
-          Home
+        <a className="btn btn-quiet" href="#day">
+          Today
         </a>
         <span className="data">
           {queue.length} left{current.isNew ? ' · new word' : ''}

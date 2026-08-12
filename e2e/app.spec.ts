@@ -8,23 +8,42 @@ const tokens = readFileSync(
 );
 const dayGround = /--ground:\s*([^;]+);/.exec(tokens)?.[1]?.trim();
 
-test('the home screen opens on the app name in Arabic', async ({ page }) => {
+/** The word arrives with an animation, and getBoundingClientRect includes a
+ *  mid-flight transform. Wait for it or every measurement is of the motion. */
+async function wordSettled(page: import('@playwright/test').Page) {
+  await page
+    .locator('.word-slot')
+    .evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)));
+}
+
+test('the app opens on today, not on a menu', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.title-ar')).toHaveText('إِتْقَان');
-  await expect(page.locator('.title-ar')).toHaveAttribute('dir', 'rtl');
-  await expect(page.getByText('10 cards waiting')).toBeVisible();
-  await expect(page.getByText('300 words · 172 roots · 0 met')).toBeVisible();
+  await expect(page.locator('.day-mark')).toHaveText('إِتْقَان');
+  await expect(page.locator('.day-mark')).toHaveAttribute('dir', 'rtl');
+
+  // Every block of the day is on one page, in order.
+  await expect(page.locator('.block')).toHaveCount(3);
+  await expect(page.getByText('Review', { exact: true })).toBeVisible();
+  await expect(page.getByText('New words')).toBeVisible();
+  await expect(page.getByText('Quiz', { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Conclude the day' }),
+  ).toBeVisible();
+
+  // Nothing is scheduled yet, so only the new words are open for business.
+  await expect(page.getByText('nothing due')).toBeVisible();
+  await expect(page.getByText(/10 waiting/)).toBeVisible();
 });
 
-test('a review can be done with the keyboard alone', async ({ page }) => {
+test('a new-word session can be done with the keyboard alone', async ({
+  page,
+}) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Start review' }).focus();
-  await page.keyboard.press('Enter');
+  await page.getByRole('link', { name: /New words/ }).click();
 
   await expect(page.locator('.study')).toHaveText('و');
   await expect(page.getByText('10 left')).toBeVisible();
 
-  // Space reveals, 1-4 grades. Nothing here needs a pointer.
   await page.locator('body').press(' ');
   await expect(page.getByText('and')).toBeVisible();
   await page.locator('body').press('3');
@@ -39,16 +58,9 @@ test('the Arabic word does not move when the answer appears', async ({
   // Found by looking at the thing, not by a test: revealing the gloss made the
   // panel taller, and a vertically-centred panel slid the word up the screen
   // at the exact moment the eye was on it.
-  await page.goto('/#review');
+  await page.goto('/#new');
   const word = page.locator('.study');
-
-  // A new word animates in, and getBoundingClientRect includes a mid-flight
-  // transform. Wait for the arrival to finish or the baseline is a moving
-  // target — the first version of this test measured 10px of animation and
-  // reported a layout shift that was not there.
-  await page
-    .locator('.word-slot')
-    .evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)));
+  await wordSettled(page);
 
   const before = await word.boundingBox();
   await page.getByRole('button', { name: 'Show answer' }).click();
@@ -60,26 +72,53 @@ test('tapping the card anywhere reveals the answer', async ({ page }) => {
   // A thumb should not have to find a button. The button still exists — it is
   // the keyboard and screen-reader path — so this is a second, larger target
   // for the same action, not a replacement.
-  await page.goto('/#review');
+  await page.goto('/#new');
   await page.locator('.card').click();
   await expect(page.getByText('and')).toBeVisible();
   await expect(page.getByRole('button', { name: /^Good/ })).toBeVisible();
 });
 
-test('a graded card is still graded after a reload', async ({ page }) => {
-  await page.goto('/');
-  await page.getByRole('button', { name: 'Start review' }).click();
-  await page.getByRole('button', { name: 'Show answer' }).click();
-  await page.getByRole('button', { name: /^Good/ }).click();
-  await expect(page.getByText('9 left')).toBeVisible();
+test('finishing a block ticks it, and the day survives a reload', async ({
+  page,
+}) => {
+  await page.goto('/#new');
+  for (let i = 0; i < 10; i++) {
+    await page.locator('.card').click();
+    await page.getByRole('button', { name: /^Good/ }).click();
+  }
+  await expect(page.getByText('All met.')).toBeVisible();
 
   await page.goto('/');
-  await expect(page.getByText('9 cards waiting')).toBeVisible();
-  await expect(page.getByText('1 reviewed today')).toBeVisible();
+  // The block ticked itself rather than waiting to be told.
+  await expect(
+    page.getByRole('button', { name: 'Mark New words done' }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByText('all met today')).toBeVisible();
+
+  await page.getByRole('button', { name: 'Conclude the day' }).click();
+  await page.reload();
+  await expect(page.getByText('Day concluded')).toBeVisible();
+  await expect(page.getByText(/1 day running/)).toBeVisible();
+});
+
+test('a block can be ticked and unticked by hand', async ({ page }) => {
+  await page.goto('/');
+  const tick = page.getByRole('button', { name: 'Mark Review done' });
+  await expect(tick).toHaveAttribute('aria-pressed', 'false');
+  await tick.click();
+  await expect(tick).toHaveAttribute('aria-pressed', 'true');
+  await page.reload();
+  await expect(
+    page.getByRole('button', { name: 'Mark Review done' }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Mark Review done' }).click();
+  await expect(
+    page.getByRole('button', { name: 'Mark Review done' }),
+  ).toHaveAttribute('aria-pressed', 'false');
 });
 
 test('a corrected gloss replaces the hand-written one', async ({ page }) => {
-  await page.goto('/#review');
+  await page.goto('/#new');
   await page.getByRole('button', { name: 'Show answer' }).click();
   await page.getByRole('button', { name: 'Edit gloss' }).click();
   await page.getByLabel('Gloss').fill('and (wāw)');
@@ -91,8 +130,11 @@ test('a corrected gloss replaces the hand-written one', async ({ page }) => {
   await expect(page.getByText('and (wāw)')).toBeVisible();
 });
 
-test('the whole state can be exported to a file', async ({ page }) => {
+test('the whole state can be exported from settings', async ({ page }) => {
   await page.goto('/');
+  await page.getByRole('link', { name: 'Settings' }).click();
+  await expect(page.getByText('Words met')).toBeVisible();
+
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Export data' }).click();
   expect((await download).suggestedFilename()).toMatch(
@@ -114,8 +156,8 @@ test('the app runs with the network switched off', async ({
 
   await context.setOffline(true);
   await page.reload();
-  await expect(page.locator('.title-ar')).toHaveText('إِتْقَان');
-  await page.getByRole('button', { name: 'Start review' }).click();
+  await expect(page.locator('.day-mark')).toHaveText('إِتْقَان');
+  await page.getByRole('link', { name: /New words/ }).click();
   await expect(page.locator('.study')).toHaveText('و');
 });
 

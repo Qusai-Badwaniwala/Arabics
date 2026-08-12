@@ -1,6 +1,12 @@
 import { createEmptyCard } from 'ts-fsrs';
 import { expect, test } from 'vitest';
-import { freshState, migrate, NEW_PER_DAY_V1, SCHEMA } from './migrate.ts';
+import {
+  BACKLOG_LIMIT_V2,
+  freshState,
+  migrate,
+  NEW_PER_DAY_V1,
+  SCHEMA,
+} from './migrate.ts';
 
 const now = new Date('2026-08-11T09:00:00Z');
 
@@ -29,6 +35,28 @@ test('data that is not a learner state is refused', () => {
   expect(() => migrate([], now)).toThrow();
   expect(() => migrate({ cards: {} }, now)).toThrow(/schema/);
   expect(() => migrate({ schema: SCHEMA }, now)).toThrow(/cards/);
+});
+
+test('a schema-1 state upgrades without inventing a history', () => {
+  // What a v1 save actually looked like: no days, no quizzes, no throttle.
+  const v1 = {
+    schema: 1,
+    createdAt: now,
+    cards: { قالَ: createEmptyCard(now) },
+    log: [],
+    glossEdits: {},
+    newPerDay: 10,
+  };
+  const state = migrate(v1, now);
+
+  expect(state.schema).toBe(SCHEMA);
+  expect(state.cards['قالَ']).toBeDefined();
+  // The streak starts at zero rather than being reconstructed from the review
+  // log. A day of reviews is not the same claim as a day concluded, and
+  // inventing the difference would be the app lying about his history.
+  expect(state.days).toEqual({});
+  expect(state.quizzes).toEqual([]);
+  expect(state.backlogLimit).toBe(BACKLOG_LIMIT_V2);
 });
 
 test('a field added after a state was saved keeps the old behaviour', () => {

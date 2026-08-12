@@ -5,6 +5,77 @@ broke and how it was found, and what was tried and abandoned.
 
 ---
 
+## 2026-08-12 — Phase 2: the Day page
+
+The app stopped being two screens and became one page: today, in blocks, each
+with a checkbox, ending in a checkbox that concludes the day. Settings is the
+only other screen. Gate: **68 unit tests, 10 UI tests across 2 devices**, exit 0.
+
+### Built
+
+- **The Day page.** Review · New words · Quiz, each a row with a tick and a
+  door. Blocks open into a focused mode and come back. Absent blocks — Lesson,
+  Read, Listen — are simply not there rather than greyed out: a block that
+  cannot do its job should not be on the page claiming it can.
+- **Schema 2** with the first real migration: day records, quiz history and the
+  backlog throttle.
+- **New words as root families.** Rank 6 (اللَّه) now pulls rank 82 (إِلٰه) along
+  with it because they share أله, instead of leaving seventy places between them.
+- **Backlog throttle** at 150 due cards, resuming by itself.
+- **MCQ quiz every second day**, weakest words first, distractors drawn from
+  words already met, seeded by the date so reopening the app gives the same
+  quiz rather than an easier reshuffle.
+- **Streak** from concluded days, and nothing anywhere penalises breaking it.
+- **Settings**: appearance, pace, data, export/import.
+
+### Decided differently, and why
+
+- **A block ticks itself, into stored state, rather than being derived.** The
+  alternative — computing "done" from whether the queue is empty — collides
+  with letting the learner tick by hand, because an auto-true block cannot be
+  unticked. One stored flag, written by both the session and the finger, has no
+  such conflict.
+- **The migration fills `backlogLimit` with the *new* default**, which looks
+  like a violation of the local-first rule that a missing field must resolve to
+  the behaviour the user already had. It is not: that rule protects a field
+  whose *default changed*. This field is *new* — there was no throttle before,
+  so there is no earlier behaviour to preserve, only an absence to fill. The
+  distinction is written into `migrate.ts` beside both constants, because it is
+  easy to get backwards and expensive when you do. **Flagged to Qusai as a place
+  the global rule needs one more sentence rather than a quiet exception.**
+- **Review and New words are two blocks, not one session.** The spec's daily
+  loop lists them separately and they have different jobs; one `Review`
+  component serves both, differing only in which queue it is handed.
+- **The quiz is seeded from the date.** Closing the app mid-quiz and coming back
+  to a different, easier set would make the score meaningless.
+
+### What broke, and how it was found
+
+- **The quiz marked the wrong answer.** Not logically — visually. The accent
+  border went on the *wrong* option and the correct one got a plain border with
+  bold text, so the eye landed on the struck-through wrong answer as if it had
+  been highlighted as correct. Found by looking at the screenshot. The right
+  answer is now inverted ink-on-ground and the wrong one recedes.
+- **The quiz prompt floated in the middle of the screen** with a 250px void
+  between it and the options — the same two-islands problem as the review card,
+  reappearing in a new place. The prompt now sits directly above its options.
+- **The day page ended halfway down** with the conclude button stranded in the
+  middle. It now sits at the end of the scroll: the bottom of the screen on a
+  short day, below the last block on a full one.
+- **`line-height: 1` clipped the harakat** on the app's name in the header. The
+  kasra under the alif and the shadda over the qaf both need somewhere to go.
+
+The frequency-order test failed on the first run of the family grouping — and
+it was right to. It asserted the old contract (a flat 1..10 walk); the new
+contract is frequency order *with families pulled forward*, and the test now
+says that instead.
+
+Both new invariants were proven to fail before being trusted: `isThrottled`
+forced to `false` fails the throttle test, and starting the streak walk at today
+rather than yesterday fails two streak tests.
+
+---
+
 ## 2026-08-12 — Vision review: the plan re-grounded in evidence
 
 Qusai asked for the whole vision played back before anything bigger got built,

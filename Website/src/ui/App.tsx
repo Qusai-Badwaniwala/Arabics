@@ -2,14 +2,20 @@ import { useEffect, useState } from 'react';
 import type { LearnerState } from '../state/migrate.ts';
 import { saveState, setSaveErrorHandler } from '../state/store.ts';
 import { applyTheme, currentTheme, type Theme } from '../lib/theme.ts';
-import { Home } from './Home.tsx';
+import { Day } from './Day.tsx';
+import { Quiz } from './Quiz.tsx';
 import { Review } from './Review.tsx';
+import { Settings } from './Settings.tsx';
 
-type View = 'home' | 'review';
+/** The day page is the app. Everything else is a block opened from it, and
+ *  every one of them returns here. There is nowhere else to be. */
+const VIEWS = ['day', 'review', 'new', 'quiz', 'settings'] as const;
+export type View = (typeof VIEWS)[number];
 
-// Hash-synced view state. Eight screens do not need a router, and the back
-// button works for free.
-const readHash = (): View => (location.hash === '#review' ? 'review' : 'home');
+function readHash(): View {
+  const hash = location.hash.replace('#', '');
+  return (VIEWS as readonly string[]).includes(hash) ? (hash as View) : 'day';
+}
 
 export function App({ initial }: { initial: LearnerState }) {
   const [state, setState] = useState<LearnerState>(initial);
@@ -38,15 +44,21 @@ export function App({ initial }: { initial: LearnerState }) {
           Not saved: {saveError}. Export your data before closing the app.
         </p>
       )}
-      {view === 'review' ? (
-        <Review state={state} onUpdate={update} />
-      ) : (
-        <Home
+      {view === 'review' && (
+        <Review state={state} onUpdate={update} mode="due" />
+      )}
+      {view === 'new' && <Review state={state} onUpdate={update} mode="new" />}
+      {view === 'quiz' && <Quiz state={state} onUpdate={update} />}
+      {view === 'settings' && (
+        <Settings
           state={state}
           theme={theme}
           onTheme={setTheme}
           onReplace={setState}
         />
+      )}
+      {view === 'day' && (
+        <Day state={state} onUpdate={update} theme={theme} onTheme={setTheme} />
       )}
     </div>
   );
